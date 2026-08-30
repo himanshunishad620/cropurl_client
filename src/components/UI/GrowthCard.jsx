@@ -1,6 +1,6 @@
 import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
 import Counter from "./Counter";
-import Skeleton from "./skeleton";
+import Skeleton from "./Skeleton";
 
 const GrowthCard = (props) => {
   if (props.isLoading) return <LoaderSkeleton />;

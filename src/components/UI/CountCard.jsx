@@ -1,6 +1,6 @@
 import { HiArrowSmUp } from "react-icons/hi";
 import Counter from "./Counter";
-import Skeleton from "./skeleton";
+import Skeleton from "./Skeleton";
 
 const CountCard = (props) => {
   if (props.isLoading) return <LoaderSkeleton />;
