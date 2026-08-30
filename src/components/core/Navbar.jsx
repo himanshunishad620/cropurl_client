@@ -1,0 +1,92 @@
+import { useGetUserProfileQuery } from "@/api/settingApi";
+import axiosApi from "@/config/axios";
+import useAuthHook from "@/hooks/useAuthHook";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { IoMdLogIn } from "react-icons/io";
+import { MdOutlineAccountCircle } from "react-icons/md";
+import { Link } from "react-router-dom";
+import Avatar from "../UI/Avatar";
+import Button from "../UI/Button";
+import CustomToast from "../UI/CustomToast";
+import LightButton from "../UI/LightButton";
+
+const Navbar = () => {
+  const { isAuthenticated, setAuth } = useAuthHook();
+  const { data: user } = useGetUserProfileQuery();
+  const [logingOut, setLogingOut] = useState(false);
+  const doLogout = async () => {
+    setLogingOut(true);
+    try {
+      const res = await axiosApi.get("/auth/logout");
+      setAuth(false, null);
+      window.location.replace("/auth");
+      toast.custom(
+        <CustomToast type={"success"} description={res.data.message} />,
+      );
+    } catch (error) {
+      toast.custom(
+        <CustomToast
+          type={"error"}
+          description={error.response.data.message}
+        />,
+      );
+    } finally {
+      setLogingOut(false);
+    }
+  };
+  return (
+    <div className="bg-surface flex h-15 w-full items-center justify-between px-50">
+      <Link to="/" replace>
+        <span className="flex items-center">
+          {" "}
+          <img src="/inlineqrpilotlogo.png" alt="" className="h-10" />
+          <p className="subheading font-bold">QR</p>
+          <p className="subheading from-brand bg-linear-to-r to-purple-600 bg-clip-text font-bold text-transparent">
+            Pilot
+          </p>
+        </span>
+      </Link>
+      <div className="flex gap-4">
+        {isAuthenticated ? (
+          <div className="flex items-center gap-4">
+            {user && (
+              <div className="flex items-center gap-3">
+                <div className="h-11 w-11">
+                  <Avatar name={user?.firstName + " " + user?.lastName} />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <p className="bold-label">
+                    {user?.firstName + " " + user?.lastName}
+                  </p>
+                  <p className="caption">{user?.email}</p>
+                </div>
+              </div>
+            )}
+            <div className="w-30">
+              <LightButton
+                label="Logout"
+                icon={IoMdLogIn}
+                onClick={doLogout}
+                isLoading={logingOut}
+              />
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="w-30">
+              <Link to="/auth">
+                <LightButton label="Login" icon={IoMdLogIn} />
+              </Link>
+            </div>
+            <div className="w-30">
+              <Button label="Register" icon={MdOutlineAccountCircle} />
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
