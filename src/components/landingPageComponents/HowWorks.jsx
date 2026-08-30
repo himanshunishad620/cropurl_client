@@ -50,7 +50,7 @@ const HowWorks = () => {
         {steps.map((step, index) => (
           <div
             key={step.title}
-            className="bg-surface relative flex w-full items-center justify-center gap-8 rounded-lg px-10 py-10"
+            className="bg-surface relative flex w-full items-center justify-center gap-8 rounded-xl px-10 py-10"
           >
             <div
               className={`${step.iconBgColor} center absolute top-5 right-5 h-8 w-8 rounded-full p-1`}

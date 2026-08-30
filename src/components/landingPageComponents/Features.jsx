@@ -75,6 +75,7 @@ const Features = () => {
         amount: 0.8,
       }}
       className="light-center-gradient w-full px-50 py-10"
+      id="features"
     >
       <p className="section-title mb-10 text-center">
         Powerful <span className="text-brand">Features</span>
@@ -83,7 +84,7 @@ const Features = () => {
         {features.map((feature) => (
           <div
             key={feature.title}
-            className="bg-surface flex w-full items-center justify-center gap-8 rounded-md px-10 py-10"
+            className="bg-surface flex w-full items-center justify-center gap-8 rounded-xl px-10 py-10"
           >
             <div
               className={`${feature.iconBgColor} center aspect-square h-15 rounded-lg text-3xl font-bold`}

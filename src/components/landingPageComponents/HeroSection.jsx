@@ -120,13 +120,13 @@ const HeroSection = () => {
             </Link>
           </div>
           <div className="mt-4 w-45">
-            <Link to="/dashboard">
+            <a href="#features">
               <LightButton
                 label="Explore Features"
                 icon={IoArrowForward}
                 left={false}
               />
-            </Link>
+            </a>
           </div>
         </div>
 

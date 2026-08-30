@@ -9,7 +9,7 @@ const App = () => {
   if (isMobile) return <DesktopOnly />;
   // if (!isOnline) return <NoInternet />;
   return (
-    <div className="center light-center-gradient h-dvh w-screen scrollbar-none overflow-scroll">
+    <div className="center light-center-gradient h-dvh w-screen scrollbar-none overflow-scroll scroll-smooth">
       <AppRoutes />
       <Toaster position="top-center" toastOptions={{ duration: 4000 }} />
     </div>
