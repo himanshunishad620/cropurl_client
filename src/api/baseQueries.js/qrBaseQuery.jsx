@@ -34,6 +34,7 @@ export const qrBaseQuery = async (args, api, extraOptions) => {
   // Handle request errors
   switch (result.error?.status) {
     case "TIMEOUT_ERROR":
+    case "ERR_CONNECTION_TIMED_OUT":
       toast.custom(
         <CustomToast type="error" description="Connection Problem!" />,
         {
@@ -49,6 +50,7 @@ export const qrBaseQuery = async (args, api, extraOptions) => {
       };
 
     case "FETCH_ERROR":
+    case "ERR_NAME_NOT_RESOLVED":
       console.log("FetchError");
       toast.custom(
         <CustomToast type="error" description="Connection Problem!" />,
