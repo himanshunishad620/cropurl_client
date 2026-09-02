@@ -209,7 +209,7 @@ const Account = () => {
   const [showAccountDelete, setShowAccountDelete] = useState(false);
   const [showQrDelete, setShowQrDelete] = useState(false);
   const [deletingAccount, setDeletingAccount] = useState(false);
-  const { setAuth, verifyToken } = useAuthHook();
+  const { setAuth } = useAuthHook();
   const [deleteAllQrs, { isLoading: deleting }] = useDeleteAllQrsMutation();
   const handleDeleteAllQrs = async () => {
     setShowQrDelete(true);
@@ -218,7 +218,7 @@ const Account = () => {
       toast.custom(<CustomToast type={"success"} description={res.message} />);
       console.log(res);
     } catch (error) {
-      console.log(error);
+      console.log("Fetch Error", error);
     } finally {
       setShowQrDelete(false);
     }
