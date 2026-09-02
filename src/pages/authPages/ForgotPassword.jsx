@@ -9,21 +9,24 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
+// Requests a password reset link for the entered email.
 const ForgotPassword = () => {
   const { values, errors, handleChange, handleSubmit, isLoading } =
     useHandleForm({
       email: "himanshunishad620@gmail.com",
     });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  // Sends the reset link request.
   const onSubmit = async (values) => {
     try {
       const res = await axiosApi.post("/auth/forgotPassword", values);
       console.log(res);
       setFormSubmitted(true);
     } catch (err) {
-      toast.custom(
-        <CustomToast type={"error"} description={err.response.data.message} />,
-      );
+      console.log(err);
+      toast.custom(<CustomToast type={"error"} description={err.message} />, {
+        id: "forgotPassword",
+      });
     }
   };
   if (formSubmitted)
@@ -71,7 +74,6 @@ const ForgotPassword = () => {
           label="Send Reset Link"
           isLoading={isLoading}
           onClick={() => console.log("Form Submisson")}
-          // Icon={<MdSubject className="text-xl text-white" />}
           left={false}
         />
       </FormContainer>

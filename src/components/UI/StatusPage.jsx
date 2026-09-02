@@ -5,6 +5,7 @@ import { HiExclamationTriangle } from "react-icons/hi2";
 import { MdPending } from "react-icons/md";
 import { Link } from "react-router-dom";
 
+// Map each status type to its icon and visual styles.
 const statusConfig = {
   success: {
     icon: BsFillPatchCheckFill,
@@ -46,6 +47,7 @@ const StatusPage = ({
   primaryText,
   linkText,
 }) => {
+  // Select the UI configuration for the current status.
   const current = statusConfig[type];
   const Icon = current.icon;
 
@@ -56,7 +58,6 @@ const StatusPage = ({
       transition={{ duration: 0.5 }}
       className="center relative flex-col gap-5 overflow-hidden p-10"
     >
-      {/* Icon */}
       <motion.div
         initial={{ scale: 0, rotate: -180 }}
         animate={{ scale: 1, rotate: 0 }}
@@ -67,7 +68,6 @@ const StatusPage = ({
         }}
         className={`center relative h-40 w-40 rounded-full ${current.iconBg}`}
       >
-        {/* Rotating Ring */}
         <motion.div
           animate={{ rotate: 360 }}
           transition={{
@@ -78,7 +78,6 @@ const StatusPage = ({
           className={`absolute inset-0 rounded-full border-2 border-dashed ${current.ring}`}
         />
 
-        {/* Floating Icon */}
         <motion.div
           animate={{
             scale: [1.1, 1.18, 1.1],
@@ -93,7 +92,6 @@ const StatusPage = ({
         </motion.div>
       </motion.div>
 
-      {/* Text */}
       <div className="center flex-col">
         <motion.h1
           initial={{ opacity: 0, y: 25 }}
@@ -133,7 +131,6 @@ const StatusPage = ({
           {linkText}
         </Link>
       </motion.span>
-      {/* Progress */}
       <motion.div
         initial={{ width: 0 }}
         animate={{ width: 220 }}

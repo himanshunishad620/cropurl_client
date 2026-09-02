@@ -18,6 +18,7 @@ import { PiFileCsv } from "react-icons/pi";
 import Button from "../UI/Button";
 import LightButton from "../UI/LightButton";
 import Stepper from "../UI/Stepper";
+import config from "./../../config/config";
 
 const options = {
   size: 150,
@@ -29,29 +30,46 @@ const options = {
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.15)",
   },
 };
+
 const steps = ["Import CSV", "Overview", "Create QRs"];
 
 const ImportCSV = ({ handleImportShow }) => {
   const [createQRs, { isLoading, isSuccess, isError, reset }] =
     useCreateQRsMutation();
+
   const [file, setFile] = useState(null);
   const [errorData, setErrorData] = useState([]);
   const [validData, setValidData] = useState([]);
   const [currStep, setCurrStep] = useState(1);
+
   const ref = useRef(null);
+
+  // Close the import modal when clicking outside
   useEffect(() => {
     const handler = (e) => {
-      if (e.target && e.target.contains(ref.current)) handleImportShow();
+      if (e.target && e.target.contains(ref.current)) {
+        handleImportShow();
+      }
     };
+
     document.addEventListener("mousedown", handler);
+
     return () => document.removeEventListener("mousedown", handler);
   }, []);
+
   const handleStepInc = () => {
-    if (currStep < steps.length) setCurrStep((pre) => pre + 1);
+    if (currStep < steps.length) {
+      setCurrStep((pre) => pre + 1);
+    }
   };
+
   const handleStepDec = () => {
-    if (currStep > 1) setCurrStep((pre) => pre - 1);
+    if (currStep > 1) {
+      setCurrStep((pre) => pre - 1);
+    }
   };
+
+  // Submit the validated QR data
   const handleCreate = async () => {
     try {
       const res = await createQRs({ qr: validData }).unwrap();
@@ -60,6 +78,8 @@ const ImportCSV = ({ handleImportShow }) => {
       console.log(error);
     }
   };
+
+  // Reset the import flow
   const handleReset = () => {
     setFile("");
     setValidData([]);
@@ -84,6 +104,7 @@ const ImportCSV = ({ handleImportShow }) => {
       >
         <div className="bg-surface flex h-2/3 w-1/2 flex-col gap-5 rounded-lg px-10 py-5">
           <Stepper currStep={currStep} steps={steps} />
+
           <div className="flex grow flex-col gap-3">
             {currStep === 1 && (
               <FileUpload
@@ -94,6 +115,7 @@ const ImportCSV = ({ handleImportShow }) => {
                 handleNext={handleStepInc}
               />
             )}
+
             {currStep === 2 && (
               <ImportPreview
                 file={file}
@@ -106,6 +128,7 @@ const ImportCSV = ({ handleImportShow }) => {
                 handlePre={handleStepDec}
               />
             )}
+
             {currStep === 3 && (
               <CreateQRs
                 loading={isLoading}
@@ -135,9 +158,12 @@ const FileUpload = ({
   setValidData,
   setErrorData,
 }) => {
+  // Parse and validate the imported CSV data
   const prepareData = async () => {
     const { default: Papa } = await import("papaparse");
+
     const textRegex = /^(?=.{4,16}$)[A-Za-z ]+$/;
+
     Papa.parse(file, {
       header: true,
       skipEmptyLines: true,
@@ -146,32 +172,45 @@ const FileUpload = ({
         const isValidUrl = (value) => {
           try {
             const url = new URL(value);
+
             return ["http:", "https:"].includes(url.protocol);
           } catch {
             return false;
           }
         };
+
         const validData = [];
         const errorData = [];
         const arr = results.data;
+
         arr.forEach((row, ind) => {
           const { name, destinationUrl } = row;
 
           const isValidName = textRegex.test(name?.trim() || "");
+
           const isValidDestination = isValidUrl(destinationUrl?.trim());
 
-          if (isValidName && isValidDestination) validData.push(row);
-          else errorData.push({ ...row, row: ind + 1 });
+          if (isValidName && isValidDestination) {
+            validData.push(row);
+          } else {
+            errorData.push({
+              ...row,
+              row: ind + 1,
+            });
+          }
         });
+
         setValidData([...validData]);
         setErrorData([...errorData]);
         handleNext();
       },
+
       error: (error) => {
         console.error(error);
       },
     });
   };
+
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
   }, []);
@@ -182,30 +221,41 @@ const FileUpload = ({
       "text/csv": [".csv"],
     },
     multiple: false,
-    maxSize: 2 * 1024 * 1024, // 5 MB
+    maxSize: 2 * 1024 * 1024, // 2 MB
   });
+
   return (
     <React.Fragment>
       <div
-        className={`center cursor-pointer ${isDragActive && "bg-page"} border-muted grow flex-col rounded-lg border-2 border-dashed duration-100`}
+        className={`center cursor-pointer ${
+          isDragActive && "bg-page"
+        } border-muted grow flex-col rounded-lg border-2 border-dashed duration-100`}
         {...getRootProps()}
       >
         <input {...getInputProps()} />
+
         <IoCloudUploadOutline className="text-body text-7xl" />
+
         <p className="title-sm text-body">Drag and Drop file to upload</p>
+
         <p className="title-sm text-body">or</p>
+
         <p className="title-sm text-body">Browse</p>
+
         <p className="bold-label text-body">
           {file ? file.name : "Supported files : CSV, Max size : 2MB"}
         </p>
       </div>
+
       <div className="flex w-full justify-between">
         <span>
           <p className="bold-label text-body">Note:</p>
+
           <p className="label text-body">
             name and destinationUrl are the required field.
           </p>
         </span>
+
         <div className="w-25">
           <Button
             label="Next"
@@ -219,6 +269,7 @@ const FileUpload = ({
     </React.Fragment>
   );
 };
+
 const ImportPreview = ({
   file,
   totalRows,
@@ -230,19 +281,25 @@ const ImportPreview = ({
   handlePre,
 }) => {
   const [preparing, setPreparing] = useState(false);
+
+  // Generate short codes and QR images for valid rows
   const handleFinalData = async () => {
     setPreparing(true);
+
     const { generateDataURL } = await import("react-qrcode-logo");
+
     const finalData = await Promise.all(
       validData.map(async (row) => {
         const shortCode = nanoid(7);
+
         const imgUrl = await generateDataURL(
           {
             ...options,
-            value: "http://localhost:5000/qr/" + shortCode,
+            value: `${config.clickUrl}/qr/${shortCode}`,
           },
           "png",
         );
+
         return {
           ...row,
           shortCode,
@@ -255,24 +312,29 @@ const ImportPreview = ({
     setPreparing(false);
     handleNext();
   };
+
   return (
     <React.Fragment>
       <p className="title-sm text-body">{file.name}</p>
+
       <div className="flex grow flex-col gap-3">
-        {/* records  */}
+        {/* Row summary */}
         <div className="flex justify-between">
           <span className="text-info flex items-center gap-1">
             <p className="body-sm flex items-center">
               <LuClipboardList className="text-md" />
               Total Rows :{" "}
             </p>
+
             <p className="body-bold">{totalRows}</p>
           </span>
+
           <span className="text-success flex items-center gap-1">
             <p className="body-sm flex items-center">
               <IoIosDoneAll className="text-2xl" />
               Valid Rows :{" "}
             </p>
+
             <p className="body-bold">{validRows}</p>
           </span>
 
@@ -281,32 +343,41 @@ const ImportPreview = ({
               <BiError className="text-lg" />
               Invalid Rows :{" "}
             </p>
+
             <p className="body-bold">{errorData.length}</p>
           </span>
         </div>
+
         <p className="body-bold text-body">Invalid rows</p>
-        {/* list  */}
+
+        {/* Invalid rows list */}
         {!errorData.length && (
           <div className="bg-page center max-h-50 grow flex-col rounded-lg px-3">
-            {/* <MdOutlineCloudDone className="text-body text-7xl" /> */}
             <IoCloudDoneOutline className="text-info text-7xl" />
+
             <p className="text-body body-sm">No invalid row found</p>
           </div>
         )}
+
         {!!errorData.length && (
           <div className="bg-page relative max-h-50 grow scrollbar-none overflow-scroll rounded-lg px-3">
             <div className="bg-page sticky top-0 left-0 flex gap-4 border-b border-gray-300 p-2">
               <p className="body-bold w-20 truncate">Row</p>
+
               <p className="body-bold w-70 truncate">Name</p>
+
               <p className="body-bold w-full truncate">Destination URL</p>
             </div>
+
             {errorData.map((row, index) => (
               <div
                 key={index}
-                className={`flex gap-4 border-b border-gray-300 p-2`}
+                className="flex gap-4 border-b border-gray-300 p-2"
               >
                 <p className="body-sm w-20 truncate">{row.row}</p>
+
                 <p className="body-sm w-70 truncate">{row.name || "<empty>"}</p>
+
                 <p className="body-sm w-full truncate">
                   {row.destinationUrl || "<empty>"}
                 </p>
@@ -315,7 +386,8 @@ const ImportPreview = ({
           </div>
         )}
       </div>
-      {/* button  */}
+
+      {/* Navigation buttons */}
       <div className="flex w-full justify-between">
         <div className="w-25">
           <LightButton
@@ -324,6 +396,7 @@ const ImportPreview = ({
             icon={IoMdArrowRoundBack}
           />
         </div>
+
         <div className="w-25">
           <Button
             label="Next"
@@ -338,6 +411,7 @@ const ImportPreview = ({
     </React.Fragment>
   );
 };
+
 const CreateQRs = ({
   handleCreate,
   validData,
@@ -349,23 +423,30 @@ const CreateQRs = ({
   handleReset,
 }) => {
   console.log(validData);
+
   return (
     <React.Fragment>
       <p className="title-sm text-body">Ready to upload</p>
+
       <div className="flex grow flex-col items-center justify-around">
         <p className="title-sm text-body">Ready to Create QR's</p>
+
         <p className="body-sm text-body">
           You're about to create QR codes from your imported data.
         </p>
+
         {!loading && !isSuccess && !isError && (
           <div className="center bg-page my-3 w-100 grow flex-col gap-1 rounded-lg">
             <PiFileCsv className="text-body text-7xl" />
+
             <p className="body-sm text-body">{fileName}</p>
+
             <p className="text-body body-bold">
               {validData.length} QR codes will be created
             </p>
           </div>
         )}
+
         {loading && (
           <motion.div
             key={49}
@@ -374,13 +455,17 @@ const CreateQRs = ({
             className="center bg-page my-3 w-100 grow flex-col gap-3 rounded-lg"
           >
             <p className="title-sm text-body">Creating QR's</p>
+
             <ImSpinner3 className="text-brand animate-spin text-2xl" />
+
             <p className="text-body body-bold">
               Creating {validData.length} QR codes...
             </p>
+
             <p className="text-body label">Please wait a moment</p>
           </motion.div>
         )}
+
         {isSuccess && (
           <motion.div
             key={93}
@@ -390,11 +475,14 @@ const CreateQRs = ({
           >
             <span className="flex flex-col items-center gap-1">
               <IoCloudDoneOutline className="text-success text-7xl" />
+
               <p className="body-bold text-body">{fileName}</p>
             </span>
+
             <p className="text-body body-sm">
               {validData.length} QR's created succesfully
             </p>
+
             <div className="w-1/3">
               <Button
                 label="Upload More"
@@ -404,6 +492,7 @@ const CreateQRs = ({
             </div>
           </motion.div>
         )}
+
         {isError && (
           <motion.div
             key={93}
@@ -413,9 +502,12 @@ const CreateQRs = ({
           >
             <span className="flex flex-col items-center gap-1">
               <MdErrorOutline className="text-error text-7xl" />
+
               <p className="body-bold text-body">Upload failed</p>
             </span>
+
             <p className="text-body body-sm">Something went wrong</p>
+
             <div className="w-1/3">
               <Button
                 label="Upload More"
@@ -426,6 +518,7 @@ const CreateQRs = ({
           </motion.div>
         )}
       </div>
+
       <div className="flex justify-between">
         <div className="w-25">
           <LightButton
@@ -434,6 +527,7 @@ const CreateQRs = ({
             icon={IoMdArrowRoundBack}
           />
         </div>
+
         <div className="w-25">
           <Button
             label="Next"

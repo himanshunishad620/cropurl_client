@@ -4,6 +4,7 @@ import { HiInformationCircle, HiXCircle } from "react-icons/hi";
 import { HiExclamationTriangle } from "react-icons/hi2";
 
 import { MdPending } from "react-icons/md";
+// Map each toast type to its icon and styles.
 const statusConfig = {
   success: {
     icon: BsFillPatchCheckFill,
@@ -32,6 +33,7 @@ const statusConfig = {
   },
 };
 const CustomToast = ({ type, description }) => {
+  // Get the UI configuration for the selected toast type.
   const current = statusConfig[type];
   const Icon = current.icon;
   return (

@@ -8,6 +8,7 @@ import HowWorks from "@/components/landingPageComponents/HowWorks";
 import Testimonial from "@/components/landingPageComponents/Testimonial";
 import UseCases from "@/components/landingPageComponents/UseCases";
 
+// Renders the public landing page sections.
 export const LandingPage = () => {
   return (
     <div className="full bg-surface">

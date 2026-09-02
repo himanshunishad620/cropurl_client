@@ -10,7 +10,7 @@ import useHandleForm from "@/hooks/useHandleForm";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-
+// Handles user authentication and session setup.
 const Login = () => {
   const navigate = useNavigate();
   const [checked, setChecked] = useState(true);
@@ -20,27 +20,22 @@ const Login = () => {
       email: localStorage.getItem("email") || "",
       password: localStorage.getItem("password") || "",
     });
+  // Submits the login credentials.
   const onSubmit = async (values) => {
     localStorage.setItem("email", checked ? values.email : "");
     localStorage.setItem("password", checked ? values.password : "");
     try {
       const res = await axiosApi.post("/auth/login", values);
       setAuth(true, res.data.user);
+      localStorage.setItem("isAuthenticated", true);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("wasLoggedOut", false);
       toast.custom(
         <CustomToast type={"success"} description={res.data.message} />,
       );
       navigate("/dashboard", { replace: true });
     } catch (err) {
-      console.log(err.message);
-      toast.custom(
-        <CustomToast
-          type={"error"}
-          description={
-            err?.response?.data?.message ||
-            "Please check you internet connection"
-          }
-        />,
-      );
+      toast.custom(<CustomToast type={"error"} description={err.message} />);
     }
   };
   const onChange = () => {

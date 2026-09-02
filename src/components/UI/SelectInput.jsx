@@ -6,6 +6,7 @@ const SelectInput = ({ onChange, label, options, width, selectedIndex }) => {
   const selectRef = useRef(null);
   const [currOption, setCurrOption] = useState(options[selectedIndex]);
   const [opened, setOpened] = useState(false);
+  // Close the dropdown when clicking outside it.
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (selectRef.current && !selectRef.current.contains(event.target)) {
@@ -20,10 +21,12 @@ const SelectInput = ({ onChange, label, options, width, selectedIndex }) => {
     };
   }, []);
 
+  // Sync the displayed option with the selected index.
   useEffect(() => {
     setCurrOption(options[selectedIndex]);
   }, [selectedIndex]);
 
+  // Toggle the dropdown visibility.
   const handleDrawer = () => {
     setOpened((pre) => !pre);
   };

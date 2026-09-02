@@ -10,6 +10,7 @@ const PasswordInput = ({
   error,
   helperText = "Please enter valid value",
 }) => {
+  // Toggle between masked and visible password text.
   const [hidePassword, setHidePassword] = useState(false);
   const handleEyeButton = () => {
     setHidePassword((pre) => !pre);

@@ -1,6 +1,5 @@
 import { useCreateQRMutation } from "@/api/qrApi";
 import Button from "@/components/UI/Button";
-import CustomToast from "@/components/UI/CustomToast";
 import IconButton from "@/components/UI/IconButton";
 import LightButton from "@/components/UI/LightButton";
 import SelectInput from "@/components/UI/SelectInput";
@@ -12,7 +11,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { nanoid } from "nanoid";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
-import toast from "react-hot-toast";
 import { AiOutlineColumnHeight, AiOutlineColumnWidth } from "react-icons/ai";
 import { CgRename } from "react-icons/cg";
 import { FaLink, FaRegFilePdf } from "react-icons/fa6";
@@ -42,6 +40,7 @@ import config from "../../config/config";
 const PADDING_SHAPES = ["circle", "square"];
 const ImportCSV = lazy(() => import("@/components/core/ImportCSV"));
 
+// Keeps generated QR values within supported limits.
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
 const initialValues = {
@@ -55,6 +54,7 @@ const initialValues = {
   qrPadding: 10,
 };
 
+// Manages QR design, creation, and CSV import.
 const CreateQRPage = () => {
   const fileInputRef = useRef();
   const [createQR, { isLoading: creating }] = useCreateQRMutation();
@@ -73,6 +73,7 @@ const CreateQRPage = () => {
     setShowImport((pre) => !pre);
   };
 
+  // Creates a temporary URL for the selected logo.
   const handleFileChange = (e) => {
     setFile(URL.createObjectURL(e.target.files[0]));
   };
@@ -89,6 +90,7 @@ const CreateQRPage = () => {
     setValue((prev) => ({ ...prev, [name]: color }));
   };
 
+  // Restores the QR designer to its default values.
   const handleReset = () => {
     setValue({ ...initialValues });
     setFile("");
@@ -97,6 +99,7 @@ const CreateQRPage = () => {
     fileInputRef.current.value = "";
   };
 
+  // Builds the current QR configuration from the design state.
   const getQROptions = () => ({
     size: clamp(value.size, 100, 500),
     logoPadding: clamp(value.padding, 10, 50),
@@ -115,6 +118,7 @@ const CreateQRPage = () => {
     },
   });
 
+  // Generates the QR image and creates the QR record.
   const handleFormSubmit = async () => {
     const shortCode = nanoid(7);
     try {
@@ -126,11 +130,10 @@ const CreateQRPage = () => {
       setResponse(data);
       setShow(true);
     } catch (err) {
-      toast.custom(
-        <CustomToast type={"error"} description={"Something went wrong!"} />,
-      );
+      console.log(err);
     }
   };
+  s;
 
   const handleShow = () => {
     setShow((pre) => !pre);
@@ -371,7 +374,6 @@ const ColorInput = ({ label, value, name, handleColorChange, icon: Icon }) => {
           style={{ backgroundColor: value }}
         ></div>
       </div>
-      {/* <p className="caption text-muted">HEX code of color</p> */}
 
       <AnimatePresence>
         {open && (

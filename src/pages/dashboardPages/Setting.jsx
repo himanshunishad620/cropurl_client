@@ -25,8 +25,10 @@ import { GrShieldSecurity } from "react-icons/gr";
 
 import { MdOutlineDelete, MdOutlineManageAccounts } from "react-icons/md";
 
+// Loads and updates the user's profile information.
 const Profile = () => {
-  const { data: user, isFetching } = useGetUserProfileQuery();
+  const { data, isFetching } = useGetUserProfileQuery();
+  const user = data ?? JSON.parse(localStorage.getItem("user"));
   const [updateProfile] = useUpdateProfileMutation();
   const { values, handleSubmit, setValues, errors, isLoading, handleChange } =
     useHandleForm({
@@ -35,18 +37,16 @@ const Profile = () => {
       email: user?.email,
     });
 
+  // Saves the updated profile details.
   const onSubmit = async () => {
     try {
       const res = await updateProfile(values).unwrap();
       toast.custom(<CustomToast type={"success"} description={res.message} />);
-      console.log(res);
     } catch (error) {
-      toast.custom(
-        <CustomToast type={"error"} description={error.data.message} />,
-      );
-      console.log(error.data);
+      console.log(error);
     }
   };
+  // Keeps form values in sync with the latest user data.
   useEffect(() => {
     setValues({
       firstName: user?.firstName,
@@ -112,12 +112,13 @@ const Profile = () => {
     </div>
   );
 };
+// Handles password and account security settings.
 const Security = () => {
   const { values, resetForm, handleSubmit, errors, isLoading, handleChange } =
     useHandleForm({
-      currentPassword: "",
-      password: "",
-      confirmPassword: "",
+      currentPassword: "Himan@124",
+      password: "Himan@124",
+      confirmPassword: "Himan@124",
     });
   const onSubmit = async () => {
     try {
@@ -130,9 +131,7 @@ const Security = () => {
         <CustomToast type={"success"} description={res.data.message} />,
       );
     } catch (err) {
-      toast.custom(
-        <CustomToast type={"error"} description={err.response.data.message} />,
-      );
+      toast.custom(<CustomToast type={"error"} description={err.message} />);
     }
   };
   const hasLength = /^.{8,}$/.test(values.password);
@@ -142,7 +141,6 @@ const Security = () => {
   const hasUppercase = /[A-Z]/.test(values.password);
   return (
     <div className="full flex flex-col gap-3 p-3">
-      {/* <div className="bg-surface flex w-full items-center gap-3 rounded-lg p-3"></div> */}
       <FormContainer
         onSubmit={handleSubmit(onSubmit)}
         className="grow border-none px-20 shadow-sm"
@@ -232,7 +230,7 @@ const Account = () => {
       setAuth(false, null);
       window.location.replace("/");
     } catch (error) {
-      console.log(error);
+      toast.custom(<CustomToast type={"error"} description={error?.message} />);
     } finally {
       setDeletingAccount(false);
     }
@@ -322,7 +320,6 @@ const Setting = () => {
       <div className="full bg-surface flex flex-col rounded-lg p-5 shadow-sm">
         <p className="subheading">Settings</p>
         <div className="grid grow grid-cols-3 gap-5">
-          {/* tabs */}
           <div className="full pt-5">
             {tabs.map((tab, ind) => (
               <div
@@ -335,7 +332,6 @@ const Setting = () => {
               </div>
             ))}
           </div>
-          {/* contents  */}
           <div className="full bg-page col-span-2 rounded-lg">
             {tabs.map((tab, index) => (
               <Activity
@@ -357,15 +353,15 @@ export default Setting;
 const ProfileSkeleton = () => {
   return (
     <div className="full flex flex-col gap-3 p-3">
-      <div className="bg-surface flex w-full items-center gap-3 rounded-lg p-3">
-        <Skeleton className={"h-20 w-20 rounded-full"} />
+      <div className="bg-surface flex w-full items-center gap-3 rounded-lg p-3 shadow-sm">
+        <Skeleton className={"h-15 w-15 rounded-full"} />
         <div>
           <Skeleton className={"h-3 w-40 rounded-full"} />
           <Skeleton className={"my-2 h-3 w-40 rounded-full"} />
           <Skeleton className={"h-3 w-40 rounded-full"} />
         </div>
       </div>
-      <div className="bg-surface grow rounded-lg p-20">
+      <div className="bg-surface grow rounded-2xl p-20 shadow-sm">
         <Skeleton className={"full"} />
       </div>
     </div>

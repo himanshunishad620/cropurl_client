@@ -3,6 +3,7 @@ import Counter from "./Counter";
 import Skeleton from "./Skeleton";
 
 const CountCard = (props) => {
+  // Show a placeholder until card data is ready.
   if (props.isLoading) return <LoaderSkeleton />;
   const Icon = props.icon;
   return (
@@ -16,6 +17,7 @@ const CountCard = (props) => {
         <p className="subheading text-body">
           <Counter duration={1500} end={props.value} />
         </p>
+        {/* Render growth only when a value exists. */}
         {!!props.growth && (
           <div
             className={`bg-brand-light flex h-5 items-center rounded-sm px-1 pr-2`}
@@ -41,12 +43,12 @@ export default CountCard;
 const LoaderSkeleton = () => {
   return (
     <div className="bg-surface flex h-full w-full flex-col justify-around rounded-lg p-2 shadow-sm">
-      <Skeleton className={"h-4 w-full rounded-lg bg-gray-200/70"} />
+      <Skeleton className={"h-4 w-full rounded-lg"} />
       <div className="flex gap-2">
-        <Skeleton className={"h-8 w-1/4 rounded-lg bg-gray-200/70"} />
-        <Skeleton className={"h-8 w-3/4 rounded-lg bg-gray-200/70"} />
+        <Skeleton className={"h-8 w-1/4 rounded-lg"} />
+        <Skeleton className={"h-8 w-3/4 rounded-lg"} />
       </div>
-      <Skeleton className={"h-4 w-full rounded-lg bg-gray-200/70"} />
+      <Skeleton className={"h-4 w-full rounded-lg"} />
     </div>
   );
 };

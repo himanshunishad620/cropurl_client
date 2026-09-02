@@ -9,6 +9,7 @@ const LightButton = ({
 }) => {
   return (
     <div className="w-full">
+      {/* Show a spinner while the action is loading. */}
       <button
         onClick={onClick}
         className="border-brand hover:bg-brand-light center w-full cursor-pointer gap-2 rounded-md border p-2 duration-100"

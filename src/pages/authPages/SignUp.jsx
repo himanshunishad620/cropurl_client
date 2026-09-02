@@ -12,6 +12,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
+// Collects account details and starts email verification.
 const SignUp = () => {
   const { values, errors, handleChange, handleSubmit, isLoading } =
     useHandleForm({
@@ -22,22 +23,25 @@ const SignUp = () => {
       confirmPassword: "Himan@123",
     });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  // Requests a verification link for the new account.
   const onSubmit = async (values) => {
     try {
       const res = await axiosApi.post("/auth/generateVerificationLink", values);
       console.log(res);
       setFormSubmitted(true);
     } catch (err) {
-      toast.custom(
-        <CustomToast type={"error"} description={err.response.data.message} />,
-      );
+      toast.custom(<CustomToast type={"error"} description={err.message} />, {
+        id: "signUp",
+      });
     }
   };
+  // Checks password requirements for live feedback.
   const hasLength = /^.{8,}$/.test(values.password);
   const hasNumber = /\d/.test(values.password);
   const hasSpecial = /[@$!%*?&#]/.test(values.password);
   const hasLowercase = /[a-z]/.test(values.password);
   const hasUppercase = /[A-Z]/.test(values.password);
+  // Shows the confirmation state after a successful request.
   if (formSubmitted)
     return (
       <StatusPage
@@ -142,7 +146,6 @@ const SignUp = () => {
           label="Sign Up"
           isLoading={isLoading}
           onClick={() => console.log("Form Submisson")}
-          // Icon={<MdSubject className="text-xl text-white" />}
           left={false}
         />
       </FormContainer>

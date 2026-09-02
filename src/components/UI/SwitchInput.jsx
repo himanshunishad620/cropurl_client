@@ -1,4 +1,5 @@
 const SwitchInput = ({ value, handleChange }) => {
+  // Move the thumb based on the current boolean value.
   return (
     <button
       type="button"

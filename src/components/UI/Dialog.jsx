@@ -5,6 +5,7 @@ import Button from "./Button";
 import LightButton from "./LightButton";
 const Dialog = ({ handleShow, isLoading, onClick }) => {
   const ref = useRef(null);
+  // Close the dialog when clicking outside its content.
   useEffect(() => {
     const handler = (e) => {
       if (e.target && e.target.contains(ref.current)) handleShow();

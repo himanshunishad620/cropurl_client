@@ -8,20 +8,21 @@ import CheckBox from "../UI/CheckBox";
 
 const QRList = ({ qr, isSelected, handleSelectChange }) => {
   const navigate = useNavigate();
-  console.log(qr);
 
   return (
     <div
       className={`${isSelected ? "border-brand " : "border-surface"} bg-surface mb-3 grid w-full grid-cols-[20px_80px_1fr_1.5fr_1fr_100px_100px] items-center gap-4 rounded-md border-2 p-2 pr-7 shadow-sm`}
     >
-      {/* QR */}
+      {/* Select QR */}
       <CheckBox
         checked={isSelected}
         onChange={() => handleSelectChange(qr.shortCode)}
       />
+
+      {/* QR Image */}
       <img className="h-20 w-20 object-contain" src={qr.imgUrl} alt="" />
 
-      {/* Name + Created */}
+      {/* Name and creation date */}
       <div className="min-w-0">
         <p className="title-sm truncate">{qr.name}</p>
 
@@ -30,10 +31,8 @@ const QRList = ({ qr, isSelected, handleSelectChange }) => {
           {formatDate(qr.createdAt)}
         </p>
       </div>
-      {/* <span className="bold-label border-brand text-brand w-20 rounded-sm border p-1 text-center">
-                    {qr.shortCode}
-                  </span> */}
-      {/* URL + Updated */}
+
+      {/* Destination URL and update date */}
       <div className="min-w-0">
         <a
           href={qr.destinationUrl}
@@ -49,11 +48,12 @@ const QRList = ({ qr, isSelected, handleSelectChange }) => {
         </p>
       </div>
 
-      {/* short code  */}
+      {/* Short code */}
       <p className="bg-success-bg text-success bold-label w-30 rounded-sm py-1 text-center">
         {qr.shortCode}
       </p>
-      {/* Status */}
+
+      {/* QR status */}
       <span className="flex items-center gap-1">
         <FaRegDotCircle
           className={`${
@@ -72,7 +72,7 @@ const QRList = ({ qr, isSelected, handleSelectChange }) => {
         </p>
       </span>
 
-      {/* Details */}
+      {/* View QR details */}
       <div className="bg-brand-light text-brand border-brand rounded-xs border py-0.5">
         <button
           onClick={() => navigate(`/dashboard/allqrs/details/${qr.shortCode}`)}

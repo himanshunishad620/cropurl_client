@@ -3,10 +3,12 @@ import axiosApi from "@/config/axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+// Verifies the account using the email token.
 const EmailVerification = () => {
   const { token } = useParams();
   const [pending, setPending] = useState(true);
   const [error, setError] = useState("");
+  // Runs verification when the page opens.
   useEffect(() => {
     const verifyToken = async () => {
       try {
@@ -14,7 +16,7 @@ const EmailVerification = () => {
           rawToken: token,
         });
       } catch (err) {
-        setError(err.response.data.message);
+        setError(err);
       } finally {
         setPending(false);
       }
@@ -34,8 +36,8 @@ const EmailVerification = () => {
     <StatusPage
       key="error"
       type="error"
-      title="Verification failed!"
-      description={error}
+      title={error.status}
+      description={error.message}
       primaryText="Go to"
       linkText="Signup"
       redirect={"/auth/signup"}

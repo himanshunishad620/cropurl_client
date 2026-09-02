@@ -14,12 +14,11 @@ const qrVariants = {
   },
 };
 
+// Shows a loading screen while the app is preparing.
 const LoadingPage = () => {
   return (
-    <div className="full bg-page flex flex-col items-center justify-center overflow-hidden">
-      {/* QR Animation */}
+    <div className="full light-center-gradient flex flex-col items-center justify-center overflow-hidden">
       <div className="relative flex h-40 w-40 items-center justify-center">
-        {/* Outer rotating QR */}
         <motion.div
           variants={qrVariants}
           animate="animate"
@@ -28,7 +27,6 @@ const LoadingPage = () => {
           <TbQrcode size={110} strokeWidth={1.5} />
         </motion.div>
 
-        {/* Second QR */}
         <motion.div
           animate={{
             scale: [1, 1.15, 1],
@@ -44,7 +42,6 @@ const LoadingPage = () => {
           <TbQrcode size={75} strokeWidth={1.5} />
         </motion.div>
 
-        {/* Center */}
         <motion.div
           animate={{
             scale: [1, 1.25, 1],
@@ -58,7 +55,6 @@ const LoadingPage = () => {
         />
       </div>
 
-      {/* Brand */}
       <motion.h1
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -68,7 +64,6 @@ const LoadingPage = () => {
         QR<span className="text-blue-500">Pilot</span>
       </motion.h1>
 
-      {/* Loading text */}
       <motion.p
         animate={{ opacity: [0.4, 1, 0.4] }}
         transition={{
@@ -80,7 +75,6 @@ const LoadingPage = () => {
         Preparing your QR experience...
       </motion.p>
 
-      {/* Loading dots */}
       <div className="mt-5 flex gap-1.5">
         {[0, 1, 2].map((item) => (
           <motion.span

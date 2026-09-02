@@ -10,6 +10,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
+// Handles password reset using the verification token.
 const ResetPassword = () => {
   const { token } = useParams();
   const { values, errors, handleChange, handleSubmit, isLoading } =
@@ -18,6 +19,7 @@ const ResetPassword = () => {
       confirmPassword: "",
     });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  // Sends the new password to the server.
   const onSubmit = async (values) => {
     try {
       const res = await axiosApi.post("/auth/resetPassword", {
@@ -27,9 +29,8 @@ const ResetPassword = () => {
       console.log(res);
       setFormSubmitted(true);
     } catch (err) {
-      toast.custom(
-        <CustomToast type={"error"} description={err.response.data.message} />,
-      );
+      console.log(err);
+      toast.custom(<CustomToast type={"error"} description={err.message} />);
     }
   };
   const hasLength = /^.{8,}$/.test(values.password);
@@ -106,7 +107,6 @@ const ResetPassword = () => {
             label="Reset Password"
             isLoading={isLoading}
             onClick={() => console.log("Form Submisson")}
-            // Icon={<MdSubject className="text-xl text-white" />}
             left={false}
           />
         </div>

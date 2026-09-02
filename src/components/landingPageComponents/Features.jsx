@@ -8,6 +8,7 @@ import {
 } from "react-icons/fi";
 import { LuQrCode } from "react-icons/lu";
 
+// Feature cards displayed on the landing page
 const features = [
   {
     icon: FiLink,
@@ -61,6 +62,7 @@ const features = [
 
 const Features = () => {
   return (
+    // Animated features section
     <motion.section
       initial={{
         opacity: 0,
@@ -77,20 +79,26 @@ const Features = () => {
       className="light-center-gradient w-full px-50 py-10"
       id="features"
     >
+      {/* Section heading */}
       <p className="section-title mb-10 text-center">
         Powerful <span className="text-brand">Features</span>
       </p>
+
+      {/* Feature cards */}
       <div className="grid grid-cols-3 gap-4">
         {features.map((feature) => (
           <div
             key={feature.title}
             className="bg-surface flex w-full items-center justify-center gap-8 rounded-xl px-10 py-10"
           >
+            {/* Feature icon */}
             <div
               className={`${feature.iconBgColor} center aspect-square h-15 rounded-lg text-3xl font-bold`}
             >
               <feature.icon className={`${feature.iconColor}`} />
             </div>
+
+            {/* Feature content */}
             <div className="grow">
               <p className="title-sm">{feature.title}</p>
               <p className="label">{feature.description}</p>

@@ -4,6 +4,7 @@ const Counter = ({ end = 100, duration = 2000, prefix = "", suffix = "" }) => {
   const ref = useRef(null);
   const [count, setCount] = useState(0);
   const [started, setStarted] = useState(false);
+  // Start the animation only when the counter enters view.
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -21,6 +22,7 @@ const Counter = ({ end = 100, duration = 2000, prefix = "", suffix = "" }) => {
 
     return () => observer.disconnect();
   }, [started]);
+  // Animate from zero to the target value.
   useEffect(() => {
     if (!started) return;
 

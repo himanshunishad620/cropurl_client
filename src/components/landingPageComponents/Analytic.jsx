@@ -5,6 +5,7 @@ import Button from "../UI/Button";
 
 const Analytic = () => {
   return (
+    // Animated analytics section
     <motion.section
       initial={{
         opacity: 0,
@@ -20,8 +21,10 @@ const Analytic = () => {
       }}
       className="light-center-gradient grid w-full grid-cols-6 bg-red-200 px-50 py-10 pr-50"
     >
+      {/* Section content */}
       <div className="col-span-2 flex w-full flex-col justify-center">
         <p className="heading">Turn every scan </p>
+
         <p className="heading from-brand bg-linear-to-r to-purple-600 bg-clip-text font-bold text-transparent">
           into useful data.
         </p>
@@ -31,6 +34,8 @@ const Analytic = () => {
           powerful platform. Get real-time insights into scans, clicks,
           locations, devices, and more.
         </p>
+
+        {/* Call-to-action button */}
         <div className="flex gap-3">
           <div className="mt-4 w-40">
             <Link to="/dashboard">
@@ -43,8 +48,26 @@ const Analytic = () => {
           </div>
         </div>
       </div>
-      <div className="col-span-4">
-        <img src="./ss.png" alt="" className="rounded-lg shadow-sm" />
+
+      {/* Analytics dashboard preview images */}
+      <div className="relative col-span-4">
+        <img
+          src="./s1.png"
+          alt=""
+          className="absolute -top-5 left-10 z-4 w-[50%] -rotate-6 rounded-sm border shadow-sm transition-transform duration-500"
+        />
+
+        <img
+          src="./s2.png"
+          alt=""
+          className="absolute top-3 left-50 z-3 w-[50%] -rotate-6 rounded-sm border shadow-sm transition-transform duration-500"
+        />
+
+        <img
+          src="./s3.png"
+          alt=""
+          className="absolute top-11 left-90 z-5 w-[50%] -rotate-6 rounded-sm border shadow-sm transition-transform duration-500"
+        />
       </div>
     </motion.section>
   );

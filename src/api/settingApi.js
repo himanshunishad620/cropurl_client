@@ -1,18 +1,20 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import config from "../config/config";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { settingBaseQuery } from "./baseQueries.js/settingBaseQuery";
+
 export const settingApi = createApi({
   reducerPath: "settingApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: config.baseUrl,
-    credentials: "include",
-  }),
+  baseQuery: settingBaseQuery,
   tagTypes: ["getUserProfile"],
+
   endpoints: (builder) => ({
+    // Get current user's profile
     getUserProfile: builder.query({
       query: () => "/auth/getUserProfile",
       transformResponse: (response) => response.user,
       providesTags: ["getUserProfile"],
     }),
+
+    // Update current user's profile
     updateProfile: builder.mutation({
       query: (user) => ({
         url: "/auth/updateProfile",

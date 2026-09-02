@@ -2,6 +2,7 @@ import Navbar from "@/components/core/Navbar";
 import SideBar from "@/components/core/SideBar";
 import { Outlet } from "react-router-dom";
 
+// Wraps dashboard pages with the shared layout.
 const Layout = () => {
   return (
     <div className="full relative">

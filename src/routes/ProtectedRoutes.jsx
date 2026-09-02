@@ -4,7 +4,7 @@ import useAuthHook from "./../hooks/useAuthHook";
 
 const ProtectedRoutes = ({ children }) => {
   const { isAuthenticated, isChecking } = useAuthHook();
-  if (isChecking) return <LoadingPage />;
+  if (isChecking && !isAuthenticated) return <LoadingPage />;
   if (!isAuthenticated) return <Navigate to={"/auth"} replace />;
   return <>{children}</>;
 };

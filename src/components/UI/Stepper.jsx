@@ -3,6 +3,7 @@ import React from "react";
 const Stepper = ({ steps, currStep }) => {
   return (
     <div className="flex w-full items-center justify-around">
+      {/* Render each step and the connector before it. */}
       {steps.map((step, index) => (
         <React.Fragment key={step}>
           {index !== 0 && (

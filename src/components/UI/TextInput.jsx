@@ -8,6 +8,7 @@ const TextInput = ({
   disabled = false,
   helperText = "Please enter valid value",
 }) => {
+  // Use error text when available, otherwise show helper text.
   return (
     <div className="w-full">
       <label

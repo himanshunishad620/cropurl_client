@@ -28,26 +28,24 @@ import { TbFileTypePdf, TbHandClick } from "react-icons/tb";
 import { useNavigate, useParams } from "react-router-dom";
 import config from "../../config/config";
 
+// Loads analytics for the selected QR code.
 const QRDetailsPage = () => {
   const { shortCode } = useParams();
-  console.log(shortCode);
   const {
     data,
-    isLoading,
-    isFetching: dataFetching,
+    isLoading: dataFetching,
     isError,
+    error,
   } = useGetAnalyticsQuery(shortCode);
+  // Displays the server error when analytics cannot be loaded.
   if (isError)
     return (
       <div className="full center">
         <StatusPage
           key="error"
           type="error"
-          title="Welcome to QRPilot!"
-          description="Your account has been created successfully. Start creating and managing your QR codes."
-          primaryText="Go to"
-          linkText="Login"
-          redirect={"/auth"}
+          title={error?.status}
+          description={error?.message}
         />
       </div>
     );
@@ -55,7 +53,6 @@ const QRDetailsPage = () => {
     <div className="grid h-full w-full grid-cols-3 gap-3">
       <div className="col-span-2 grid h-full w-full grid-cols-1 grid-rows-16 gap-3 py-3">
         <QRDetailsSection dataFetching={dataFetching} shortCode={shortCode} />
-        {/* cards */}
         <div className="row-span-3 grid h-full w-full grid-cols-3 gap-3">
           <CountCard
             icon={TbHandClick}
@@ -95,13 +92,13 @@ const QRDetailsPage = () => {
         <div className="row-span-4 grid h-full w-full grid-cols-2 gap-3">
           <TopNDataList
             isLoading={dataFetching}
-            data={data?.topNCities.value}
+            data={data?.topNCities?.value}
             title={"Cities"}
             caption={"Top 3 cities by no of request"}
           />
           <TopNDataList
             isLoading={dataFetching}
-            data={data?.topNBrowsers.value}
+            data={data?.topNBrowsers?.value}
             title={"Browsers"}
             caption={"Top 3 browsers by no of request"}
           />
@@ -111,7 +108,7 @@ const QRDetailsPage = () => {
         <div className="bg-surface h-full w-full rounded-lg shadow-sm">
           <PieCharts
             isLoading={dataFetching}
-            datas={data?.topNCities.percentage}
+            datas={data?.topNCities?.percentage}
             caption={"Top 3 cities"}
             title="Cities"
           />
@@ -119,7 +116,7 @@ const QRDetailsPage = () => {
         <div className="bg-surface h-full w-full rounded-lg shadow-sm">
           <PieCharts
             isLoading={dataFetching}
-            datas={data?.topNBrowsers.percentage}
+            datas={data?.topNBrowsers?.percentage}
             caption={"Top 3 Browsers used"}
             title="Browsers"
           />
@@ -131,9 +128,10 @@ const QRDetailsPage = () => {
 
 export default QRDetailsPage;
 
+// Manages QR details, editing, downloads, and deletion.
 const QRDetailsSection = ({ dataFetching, shortCode }) => {
   const navigate = useNavigate();
-  const { data, isFetching } = useGetQRQuery(shortCode);
+  const { data, isFetching, error } = useGetQRQuery(shortCode);
   const [updateQR, { isLoading: updating }] = useUpdateQRMutation(shortCode);
   const [deleteQR, { isLoading: deleting }] = useDeleteQRMutation(shortCode);
   const { values, errors, handleChange, handleSubmit, isLoading } =
@@ -145,6 +143,7 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
   const [status, setStatus] = useState(data?.isActive);
   const [show, setShow] = useState(false);
 
+  // Deletes the QR and returns to the QR list.
   const handleDelete = async () => {
     try {
       await deleteQR(shortCode).unwrap();
@@ -155,10 +154,6 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
         />,
       );
       navigate("/dashboard/allqrs");
-    } catch (error) {
-      toast.custom(
-        <CustomToast type={"error"} description={"Unable to delete!"} />,
-      );
     } finally {
       setShow((pre) => !pre);
     }
@@ -172,6 +167,7 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
     setStatus((pre) => !pre);
   };
 
+  // Saves the edited QR details and status.
   const handleUpdate = async () => {
     try {
       await updateQR({ shortCode, ...values, status }).unwrap();
@@ -182,27 +178,22 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
         />,
       );
     } catch (error) {
-      toast.custom(
-        <CustomToast type={"error"} description={"Unable to update!"} />,
-      );
+      console.log(error);
     }
   };
 
+  // Copies the tracking URL to the clipboard.
   const handleCopy = async () => {
     await navigator.clipboard.writeText(
       `${config.clickUrl}/c/${data?.shortCode}`,
     );
     console.log("object");
     toast.custom(<CustomToast type={"success"} description={"URL copied"} />);
-    // toast.custom(
-    //   <CustomToast type={"success"} description={"URL copied succesfully!"} />,
-    // );
   };
 
   const handleQRClick = () => {
     window.open(`${config.clickUrl}/q/${data.shortCode}`, "_blank");
   };
-  //  value={`${config.baseUrl}/qr/${data.shortCode}`}
   const handleUrlClick = () => {
     window.open(`${config.clickUrl}/c/${data.shortCode}`, "_blank");
   };
@@ -213,7 +204,7 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
     setStatus(data?.isActive);
   }, [data]);
 
-  if (isFetching || dataFetching) return <LoadingSkeleton />;
+  if (dataFetching) return <LoadingSkeleton />;
 
   return (
     <div className="full bg-surface row-span-9 flex flex-col rounded-lg px-5 pt-5">

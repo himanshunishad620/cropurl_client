@@ -5,9 +5,7 @@ import AppRoutes from "./routes/AppRoutes";
 
 const App = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
-  // const { isOnline } = useOnlineStatus();
   if (isMobile) return <DesktopOnly />;
-  // if (!isOnline) return <NoInternet />;
   return (
     <div className="center light-center-gradient h-dvh w-screen scrollbar-none overflow-scroll scroll-smooth">
       <AppRoutes />

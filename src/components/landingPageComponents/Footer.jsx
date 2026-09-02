@@ -7,6 +7,8 @@ import { PiNewspaperClippingBold } from "react-icons/pi";
 import Button from "../UI/Button";
 import CustomToast from "../UI/CustomToast";
 import EmailInput from "../UI/EmailInput";
+
+// Contact information displayed in the footer
 const contactInfo = [
   {
     icon: MdEmail,
@@ -30,12 +32,19 @@ const contactInfo = [
     iconBgColor: "bg-green-100",
   },
 ];
+
+// Email validation pattern
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const Footer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
+
+  // Handle newsletter subscription
   const handleSumbit = (e) => {
     e.preventDefault();
+
+    // Validate email format
     if (!emailRegex.test(email))
       return toast.custom(
         <CustomToast
@@ -43,6 +52,8 @@ const Footer = () => {
           description={"Invalid email. Please enter a valid email!"}
         />,
       );
+
+    // Check for empty email
     if (!email)
       return toast.custom(
         <CustomToast
@@ -50,7 +61,10 @@ const Footer = () => {
           description={"Email is requried. Please enter your email!"}
         />,
       );
+
     setIsLoading(true);
+
+    // Simulate subscription request
     setTimeout(() => {
       toast.custom(
         <CustomToast
@@ -61,10 +75,14 @@ const Footer = () => {
       setIsLoading(false);
     }, 1000);
   };
+
+  // Update email input value
   const handleChange = (e) => {
     setEmail(e.target.value);
   };
+
   return (
+    // Animated footer section
     <motion.section
       initial={{
         opacity: 0,
@@ -80,7 +98,9 @@ const Footer = () => {
       }}
       className="bg-surface px-50 py-10"
     >
+      {/* Footer main content */}
       <div className="grid grid-cols-3 pb-5">
+        {/* Brand information */}
         <div className="full flex flex-col justify-between">
           <span className="flex items-center">
             <img src="/inlineqrpilotlogo.png" alt="" className="h-15" />
@@ -89,6 +109,7 @@ const Footer = () => {
               Pilot
             </p>
           </span>
+
           <p className="label w-80">
             QRPilot is an open-source tool designed to generate, manage, and
             track dynamic QR codes instantly. Built for seamless integration, it
@@ -96,13 +117,17 @@ const Footer = () => {
             powerful API and intuitive user interface.
           </p>
         </div>
+
+        {/* Contact information */}
         <div className="flex flex-col gap-3">
           <p className="title-sm text-brand">Get Into Touch</p>
+
           {contactInfo.map((contact) => (
             <div key={contact.title} className="flex items-center gap-3">
               <div className="border-brand center h-8 w-8 rounded-full border">
                 <contact.icon className="text-brand font-bold" />
               </div>
+
               <div>
                 <p className="bold-label">{contact.title}</p>
                 <p className="caption">{contact.value}</p>
@@ -110,9 +135,13 @@ const Footer = () => {
             </div>
           ))}
         </div>
+
+        {/* Newsletter subscription */}
         <div className="full flex flex-col gap-3">
           <p className="title-sm text-brand">Join a Newsletter</p>
+
           <EmailInput value={email} onChange={handleChange} />
+
           <div>
             <Button
               onClick={handleSumbit}
@@ -123,6 +152,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      {/* Footer copyright */}
       <div className="flex items-center justify-between border-t border-gray-200 pt-6 text-sm">
         <span className="flex">
           <p className="body-sm pr-2">© 2026 </p>

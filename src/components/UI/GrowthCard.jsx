@@ -3,6 +3,7 @@ import Counter from "./Counter";
 import Skeleton from "./Skeleton";
 
 const GrowthCard = (props) => {
+  // Show a placeholder until growth data is ready.
   if (props.isLoading) return <LoaderSkeleton />;
   const Icon = props.icon;
   return (
@@ -17,6 +18,7 @@ const GrowthCard = (props) => {
           <Counter duration={1500} end={props.currValue} />
         </p>
 
+        {/* Show the trend badge when a current value exists. */}
         {!!props.currValue && (
           <div
             className={`flex h-5 items-center gap-1 rounded-sm bg-red-50 px-1 ${props.isGrowth ? "bg-success-bg" : "bg-error-bg"}`}
@@ -52,12 +54,12 @@ export default GrowthCard;
 const LoaderSkeleton = () => {
   return (
     <div className="bg-surface flex h-full w-full flex-col justify-around rounded-lg p-2 shadow-sm">
-      <Skeleton className={"h-4 w-full rounded-lg bg-gray-200/70"} />
+      <Skeleton className={"h-4 w-full rounded-lg"} />
       <div className="flex gap-2">
-        <Skeleton className={"h-10 w-1/4 rounded-lg bg-gray-200/70"} />
-        <Skeleton className={"h-10 w-3/4 rounded-lg bg-gray-200/70"} />
+        <Skeleton className={"h-10 w-1/4 rounded-lg"} />
+        <Skeleton className={"h-10 w-3/4 rounded-lg"} />
       </div>
-      <Skeleton className={"h-4 w-full rounded-lg bg-gray-200/70"} />
+      <Skeleton className={"h-4 w-full rounded-lg"} />
     </div>
   );
 };

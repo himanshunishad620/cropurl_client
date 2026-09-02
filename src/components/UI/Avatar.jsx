@@ -1,4 +1,5 @@
 const Avatar = (props) => {
+  // Create initials from the first two name parts.
   const initials = props.name
     .trim()
     .split(" ")
@@ -14,20 +15,3 @@ const Avatar = (props) => {
 };
 
 export default Avatar;
-// const Avatar = ({ name = "Himanshu Nishad" }) => {
-//   const initials = name
-//     .trim()
-//     .split(" ")
-//     .slice(0, 2)
-//     .map((word) => word[0])
-//     .join("")
-//     .toUpperCase();
-
-//   return (
-//     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white">
-//       {initials}
-//     </div>
-//   );
-// };
-
-// export default Avatar;

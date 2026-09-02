@@ -1,9 +1,14 @@
 import { useState } from "react";
 const textRegex = /^(?=.{4,30}$)[A-Za-z ]+$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const passwordRegex =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
-//treate # as special character in password regex
+const passwordRegex = {
+  minLength: /^.{8,}$/,
+  lowercase: /[a-z]/,
+  uppercase: /[A-Z]/,
+  digit: /\d/,
+  specialChar: /[@$!%*?&#^()_\-+=~.,<>{}[\]|\\/:;"'`]/,
+  allowedCharsOnly: /^[A-Za-z\d@$!%*?&#]+$/,
+};
 
 const useHandleForm = (initialValues) => {
   const [values, setValues] = useState(initialValues);
@@ -34,8 +39,18 @@ const useHandleForm = (initialValues) => {
 
       case "password":
         if (!value) return "Password is required";
-        if (value.length < 8) return "Password must be at least 8 characters";
-        if (!passwordRegex.test(value)) return "Invddalid password";
+        if (!passwordRegex.minLength.test(value))
+          return "Password must be at least 8 characters long.";
+        if (!passwordRegex.lowercase.test(value))
+          return "Password must contain at least one lowercase letter.";
+        if (!passwordRegex.uppercase.test(value))
+          return "Password must contain at least one uppercase letter.";
+        if (!passwordRegex.digit.test(value))
+          return "Password must contain at least one digit.";
+        if (!passwordRegex.specialChar.test(value))
+          return "Password must contain at least one special character.";
+        if (!passwordRegex.allowedCharsOnly.test(value))
+          return "Only letters, digits, and @ $ ! % * ? & # are allowed.";
         return "";
 
       case "confirmPassword":
@@ -74,7 +89,6 @@ const useHandleForm = (initialValues) => {
     });
     setErrors(newErrors);
     const hasError = Object.values(newErrors).some((error) => error !== "");
-    console.log(hasError);
     if (hasError) return;
     setIsLoading(true);
     try {

@@ -14,18 +14,21 @@ import {
 import { TbCalendarMonthFilled, TbHandClick } from "react-icons/tb";
 
 const PieCharts = lazy(() => import("@/components/core/PieCharts"));
+// Loads and displays the user's QR analytics overview.
 const Overview = () => {
-  const { data, isLoading, isError } = useGetUserQuery();
-  console.log(data || "h");
-  if (isError)
+  // Fetches the summary data used across the dashboard.
+  const { data, isLoading, error, isFetching } = useGetUserQuery();
+  // Shows an error state when overview data is unavailable.
+  if (!data && !isLoading && !isFetching)
     return (
-      <div className="full center">
-        <StatusPage
-          key="error"
-          type="error"
-          title="Something went wrong!"
-          description="Due to internal server error. Unable to fetch data."
-        />
+      <div className="full center py-3 pr-3">
+        <div className="full center bg-surface rounded-2xl">
+          <StatusPage
+            type="error"
+            title={error?.status}
+            description={error.message}
+          />
+        </div>
       </div>
     );
   return (
@@ -34,7 +37,7 @@ const Overview = () => {
         <div className="row-span-6 grid h-full w-full grid-cols-3 grid-rows-2 gap-3">
           <CountCard
             icon={TbHandClick}
-            isLoading={isLoading}
+            isLoading={isFetching}
             title={"Total Clicks"}
             caption={"in last 30 days"}
             growth={data?.totalClicksInLast30Days}
@@ -46,7 +49,7 @@ const Overview = () => {
           <CountCard
             suffix={"+"}
             icon={MdOutlineQrCode2}
-            isLoading={isLoading}
+            isLoading={isFetching}
             title={"Total Scans"}
             caption={"in last 30 days"}
             growth={data?.totalScansInLast30Days}
@@ -57,7 +60,7 @@ const Overview = () => {
           <CountCard
             icon={LuUsers}
             suffix={"%"}
-            isLoading={isLoading}
+            isLoading={isFetching}
             title={"Unique User"}
             caption={"rate of unique user"}
             growth={data?.uniqueVisitorsRate}
@@ -67,7 +70,7 @@ const Overview = () => {
           />
           <GrowthCard
             icon={MdOutlineToday}
-            isLoading={isLoading}
+            isLoading={isFetching}
             title={"Today"}
             caption={"vs last day"}
             {...data?.last1Days}
@@ -76,7 +79,7 @@ const Overview = () => {
           />
           <GrowthCard
             icon={MdOutlineCalendarMonth}
-            isLoading={isLoading}
+            isLoading={isFetching}
             title={"Last 7 days"}
             caption={"vs last 7 days"}
             {...data?.last7Days}
@@ -84,7 +87,7 @@ const Overview = () => {
             bgColor={"bg-amber-500/10"}
           />
           <GrowthCard
-            isLoading={isLoading}
+            isLoading={isFetching}
             icon={TbCalendarMonthFilled}
             title={"Last 30 days"}
             caption={"vs last 30 days"}
@@ -95,18 +98,18 @@ const Overview = () => {
         </div>
         <LineChartSection
           data={data?.graphData}
-          isLoading={isLoading}
+          isLoading={isFetching}
           title={"Growth by time"}
         />
         <div className="row-span-4 grid h-full w-full grid-cols-2 gap-3">
           <TopNDataList
-            isLoading={isLoading}
+            isLoading={isFetching}
             data={data?.topNCities.value}
             title={"Cities"}
             caption={"Top 3 cities by no of request"}
           />
           <TopNDataList
-            isLoading={isLoading}
+            isLoading={isFetching}
             data={data?.topNBrowsers.value}
             title={"Browsers"}
             caption={"Top 3 browsers by no of request"}
@@ -117,7 +120,7 @@ const Overview = () => {
         <div className="bg-surface h-full w-full rounded-lg shadow-sm">
           <Suspense fallback={null}>
             <PieCharts
-              isLoading={isLoading}
+              isLoading={isFetching}
               datas={data?.topNCities.percentage}
               caption={"Top 3 cities"}
               title="Cities"
@@ -127,7 +130,7 @@ const Overview = () => {
         <div className="bg-surface h-full w-full rounded-lg shadow-sm">
           <Suspense fallback={null}>
             <PieCharts
-              isLoading={isLoading}
+              isLoading={isFetching}
               datas={data?.topNBrowsers.percentage}
               caption={"Top 3 Browsers used"}
               title="Browsers"

@@ -8,14 +8,10 @@ import { store } from "./store/store.js";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    {/* <ClerkProvider
-      publishableKey={"pk_test_ZnJlZS1tdXNrcmF0LTM2LmNsZXJrLmFjY291bnRzLmRldiQ"}
-    > */}
     <Provider store={store}>
       <AuthProvider>
         <App />
       </AuthProvider>
     </Provider>
-    {/* </ClerkProvider> */}
   </BrowserRouter>,
 );

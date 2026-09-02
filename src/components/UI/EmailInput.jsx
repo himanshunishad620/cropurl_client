@@ -7,6 +7,7 @@ const EmailInput = ({
   error,
   helperText = "Please enter valid value",
 }) => {
+  // Display the validation message or default helper text.
   return (
     <div className="w-full">
       <label

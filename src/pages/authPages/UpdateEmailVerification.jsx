@@ -3,10 +3,12 @@ import axiosApi from "@/config/axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+// Handles verification for an email update.
 const UpdateEmailVerification = () => {
   const { token } = useParams();
   const [pending, setPending] = useState(true);
   const [error, setError] = useState("");
+  // Verifies the token when the page loads.
   useEffect(() => {
     const verifyToken = async () => {
       try {

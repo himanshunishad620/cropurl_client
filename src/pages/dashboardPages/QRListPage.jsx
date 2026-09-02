@@ -22,6 +22,7 @@ const statusOptions = ["All", "Active", "Inactive"];
 const orderOptions = ["Newest", "Oldest"];
 const limitOptions = [10, 20, 30];
 
+// Manages the QR list, filters, search, and pagination.
 const QRListPage = () => {
   const ref = useRef(null);
   const navigate = useNavigate();
@@ -35,7 +36,8 @@ const QRListPage = () => {
   const [debounceValue, setDebounceValue] = useState("");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
-  const { data, isLoading, isFetching } = useGetQRsQuery({
+  // Fetches QR codes using the current list filters.
+  const { data, isLoading, isFetching, isError, error } = useGetQRsQuery({
     order: orderOptions[orderIndex],
     status: statusOptions[statusIndex],
     page: pageIndex,
@@ -43,7 +45,7 @@ const QRListPage = () => {
     limit: limitOptions[limitIndex],
   });
   const [deleteQRs, { isLoading: deleting }] = useDeleteQRsMutation();
-  console.log(selected);
+  // Debounces search input before updating the API query.
   useEffect(() => {
     if (ref.current) {
       clearTimeout(ref.current);
@@ -54,6 +56,7 @@ const QRListPage = () => {
     return () => clearTimeout(ref.current);
   }, [debounceValue]);
 
+  // Adds or removes a QR from the current selection.
   const handleSelectChange = (shortCode) => {
     if (selected.includes(shortCode)) {
       setSelected((pre) => pre.filter((sCode) => sCode !== shortCode));
@@ -75,9 +78,9 @@ const QRListPage = () => {
     setOrderIndex(index);
   };
   const handlePageChange = (index) => {
-    console.log(index);
     setPageIndex(index);
   };
+  // Exports the currently filtered QR data.
   const handleExport = async () => {
     const { default: exportFromJSON } = await import("json-to-csv-export");
 
@@ -97,19 +100,11 @@ const QRListPage = () => {
       );
     setShowDeleteDialog((pre) => !pre);
   };
+  // Deletes the selected QR codes after confirmation.
   const handleDelete = async () => {
     try {
       await deleteQRs({ shortCodes: selected }).unwrap();
-      toast.custom(
-        <CustomToast
-          type={"success"}
-          description={"QR deleted succesfully!"}
-        />,
-      );
-    } catch (error) {
-      toast.custom(
-        <CustomToast type={"error"} description={"Unable to delete!"} />,
-      );
+      toast.custom(<CustomToast type={"success"} description={res.message} />);
     } finally {
       setSelected([]);
       setShowDeleteDialog((pre) => !pre);
@@ -137,7 +132,6 @@ const QRListPage = () => {
               icon={MdOutlineAddBox}
               onClick={() => navigate("/dashboard/create")}
             />
-            {/* <LightButton icon={TbFileTypeCsv} label="Export" /> */}
           </div>
         </div>
         <div className="grid grid-cols-4 gap-3">
@@ -192,7 +186,18 @@ const QRListPage = () => {
         </div>
         <div className="bg-page scrollbar-hide mb-5 h-[calc(100vh-300px)] overflow-scroll rounded-lg p-3">
           {isFetching && <LoadingPage />}
-          {!data?.arr.length && (
+          {isError && !data?.arr?.length && (
+            <StatusPage
+              key="info"
+              type="error"
+              title={error.status}
+              description={error.message}
+              primaryText="Create"
+              linkText="QR"
+              redirect="/dashboard/create"
+            />
+          )}
+          {!isError && !isLoading && !data?.arr?.length && (
             <StatusPage
               key="info"
               type="info"
@@ -200,18 +205,17 @@ const QRListPage = () => {
               description="There is not any QR data to show you. Please create QR."
               primaryText="Create"
               linkText="QR"
-              redirect={"/dashboard/create"}
+              redirect="/dashboard/create"
             />
           )}
-          {!isFetching &&
-            data?.arr.map((qr) => (
-              <QRList
-                handleSelectChange={handleSelectChange}
-                isSelected={selected.includes(qr.shortCode)}
-                qr={qr}
-                key={qr._id}
-              />
-            ))}
+          {data?.arr?.map((qr) => (
+            <QRList
+              handleSelectChange={handleSelectChange}
+              isSelected={selected.includes(qr.shortCode)}
+              qr={qr}
+              key={qr._id}
+            />
+          ))}
         </div>
         <Pagination
           onClick={handlePageChange}
