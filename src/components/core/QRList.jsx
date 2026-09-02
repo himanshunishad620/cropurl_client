@@ -8,7 +8,7 @@ import CheckBox from "../UI/CheckBox";
 
 const QRList = ({ qr, isSelected, handleSelectChange }) => {
   const navigate = useNavigate();
-
+  console.log(qr);
   return (
     <div
       className={`${isSelected ? "border-brand " : "border-surface"} bg-surface mb-3 grid w-full grid-cols-[20px_80px_1fr_1.5fr_1fr_100px_100px] items-center gap-4 rounded-md border-2 p-2 pr-7 shadow-sm`}
@@ -20,7 +20,7 @@ const QRList = ({ qr, isSelected, handleSelectChange }) => {
       />
 
       {/* QR Image */}
-      <img className="h-20 w-20 object-contain" src={qr.imgUrl} alt="" />
+      {/* <img className="h-20 w-20 object-contain" src={qr.imgUrl} alt="" /> */}
 
       {/* Name and creation date */}
       <div className="min-w-0">

@@ -232,7 +232,7 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
       </div>
       <div className="border-muted grid grow grid-cols-3 gap-3">
         <div className="aspect-square">
-          <img className="full aspect-square" src={data?.imgUrl} alt="" />
+          {/* <img className="full aspect-square" src={data?.imgUrl} alt="" /> */}
         </div>
         <div className="full col-span-2">
           <form onSubmit={handleSubmit(handleUpdate)}>
