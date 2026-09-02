@@ -216,9 +216,8 @@ const Account = () => {
     try {
       const res = await deleteAllQrs().unwrap();
       toast.custom(<CustomToast type={"success"} description={res.message} />);
-      console.log(res);
     } catch (error) {
-      console.log("Fetch Error", error);
+      console.log("Fetch Error setting", error);
     } finally {
       setShowQrDelete(false);
     }
