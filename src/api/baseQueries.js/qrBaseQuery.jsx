@@ -32,6 +32,7 @@ export const qrBaseQuery = async (args, api, extraOptions) => {
   const result = await baseQuery(args, api, extraOptions);
 
   // Handle request errors
+  console.log(result);
   switch (result.error?.status) {
     case "TIMEOUT_ERROR":
     case "ERR_CONNECTION_TIMED_OUT":
