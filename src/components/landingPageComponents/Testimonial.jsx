@@ -9,7 +9,7 @@ const testimonials = [
     rating: 3,
     comment:
       "QRPilot makes creating and managing QR codes incredibly easy. I can generate a code in seconds and track scans without dealing with complicated analytics.",
-    dpUrl: "https://i.pravatar.cc/150?img=12",
+    dpUrl: "/profile.jpg",
   },
   {
     name: "Priya Verma",
@@ -17,7 +17,7 @@ const testimonials = [
     rating: 5,
     comment:
       "The dashboard is clean, fast, and really easy to understand. I especially like being able to see clicks, scans, and performance trends all in one place.",
-    dpUrl: "https://i.pravatar.cc/150?img=47",
+    dpUrl: "/profile.jpg",
   },
   {
     name: "Rahul Mehta",
@@ -25,7 +25,7 @@ const testimonials = [
     rating: 4,
     comment:
       "I have been using QRPilot to manage my short links and QR codes, and it has made tracking campaigns much simpler. The analytics are clear and genuinely useful.",
-    dpUrl: "https://i.pravatar.cc/150?img=33",
+    dpUrl: "/profile.jpg",
   },
 ];
 
