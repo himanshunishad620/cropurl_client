@@ -120,6 +120,10 @@ const QRListPage = () => {
               onClick={handleDelete}
               isLoading={deleting}
               handleShow={handleShowDialog}
+              message={
+                "This action cannot be undone. The QR code and its associated data may no longer be available after deletion."
+              }
+              title={"Delete QR Code?"}
             />
           )}
         </AnimatePresence>

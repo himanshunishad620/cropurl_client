@@ -12,11 +12,12 @@ const UpdateEmailVerification = () => {
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        await axiosApi.patch("/auth/updateEmail", {
+        const res = await axiosApi.patch("/auth/updateEmail", {
           rawToken: token,
         });
+        console.log(res);
       } catch (err) {
-        setError(err.response.data.message);
+        setError(err);
       } finally {
         setPending(false);
       }
@@ -39,8 +40,8 @@ const UpdateEmailVerification = () => {
     <StatusPage
       key="error"
       type="error"
-      title="Email Verfication Failed!"
-      description={error}
+      title={error.status}
+      description={error.message}
       primaryText="Go to"
       linkText="Login"
       redirect={"/auth"}

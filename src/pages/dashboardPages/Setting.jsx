@@ -248,6 +248,10 @@ const Account = () => {
             onClick={handleDeleteAccount}
             handleShow={handleAccountShow}
             isLoading={deletingAccount}
+            message={
+              "This action cannot be undone. All your QR codes, links, analytics, and associated data will be permanently deleted."
+            }
+            title={"Delete Account?"}
           />
         )}
       </AnimatePresence>
@@ -257,6 +261,10 @@ const Account = () => {
             onClick={handleDeleteAllQrs}
             handleShow={handleDeleteShow}
             isLoading={deleting}
+            message={
+              "This action cannot be undone. The QR code and its associated data may no longer be available after deletion."
+            }
+            title={"Delete QR Code?"}
           />
         )}
       </AnimatePresence>

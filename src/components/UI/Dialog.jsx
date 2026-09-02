@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { HiExclamationTriangle } from "react-icons/hi2";
 import Button from "./Button";
 import LightButton from "./LightButton";
-const Dialog = ({ handleShow, isLoading, onClick }) => {
+const Dialog = ({ handleShow, isLoading, onClick, title, message }) => {
   const ref = useRef(null);
   // Close the dialog when clicking outside its content.
   useEffect(() => {
@@ -27,13 +27,11 @@ const Dialog = ({ handleShow, isLoading, onClick }) => {
         className="full center"
         ref={ref}
       >
-        <div className="bg-surface flex h-55 w-90 flex-col items-center justify-between rounded-lg p-5">
+        <div className="bg-surface flex w-90 flex-col items-center justify-between gap-8 rounded-lg p-5">
           <HiExclamationTriangle className="rounded-full bg-yellow-500/10 p-4 text-6xl text-yellow-500" />
           <div className="-mt-4">
-            <p className="subheading text-body w-full text-center">Caution</p>
-            <p className="label text-body">
-              Hi my name is Himanshu Nishad. I am a react developer
-            </p>
+            <p className="subheading text-body w-full text-center">{title}</p>
+            <p className="label wi-full text-body text-center">{message}</p>
           </div>
           <div className="flex w-full gap-5">
             <LightButton onClick={handleShow} label="Cancel" />

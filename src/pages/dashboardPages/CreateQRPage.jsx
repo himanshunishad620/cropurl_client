@@ -1,5 +1,6 @@
 import { useCreateQRMutation } from "@/api/qrApi";
 import Button from "@/components/UI/Button";
+import CustomToast from "@/components/UI/CustomToast";
 import IconButton from "@/components/UI/IconButton";
 import LightButton from "@/components/UI/LightButton";
 import SelectInput from "@/components/UI/SelectInput";
@@ -11,6 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { nanoid } from "nanoid";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
+import toast from "react-hot-toast";
 import { AiOutlineColumnHeight, AiOutlineColumnWidth } from "react-icons/ai";
 import { CgRename } from "react-icons/cg";
 import { FaLink, FaRegFilePdf } from "react-icons/fa6";
@@ -75,7 +77,38 @@ const CreateQRPage = () => {
 
   // Creates a temporary URL for the selected logo.
   const handleFileChange = (e) => {
-    setFile(URL.createObjectURL(e.target.files[0]));
+    const selectedFile = e.target.files?.[0];
+
+    if (!selectedFile) return;
+    const allowedTypes = ["image/png", "image/jpeg"];
+
+    if (!allowedTypes.includes(selectedFile.type)) {
+      toast.custom(
+        <CustomToast
+          type={"warning"}
+          description={"Please select a PNG or JPEG image."}
+        />,
+        { id: "file_upload" },
+      );
+      e.target.value = "";
+      return;
+    }
+
+    const maxSize = 2 * 1024 * 1024;
+
+    if (selectedFile.size > maxSize) {
+      toast.custom(
+        <CustomToast
+          type={"warning"}
+          description={"File size limit exceded, Max 2MB"}
+        />,
+        { id: "file_upload" },
+      );
+      e.target.value = "";
+      return;
+    }
+
+    setFile(URL.createObjectURL(selectedFile));
   };
 
   const handleSelectChange = (index) => {
@@ -133,7 +166,6 @@ const CreateQRPage = () => {
       console.log(err);
     }
   };
-  s;
 
   const handleShow = () => {
     setShow((pre) => !pre);
