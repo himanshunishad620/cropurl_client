@@ -42,7 +42,7 @@ axiosApi.interceptors.response.use(
         message: error.response.data?.message,
       };
     }
-    console.log(error);
+    console.log("Axios", error);
     if (normalized.status === 401) {
       localStorage.setItem("isAuthenticated", false);
       localStorage.setItem("user", null);
