@@ -30,6 +30,7 @@ const Login = () => {
       localStorage.setItem("isAuthenticated", true);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       localStorage.setItem("wasLoggedOut", false);
+      console.log(res);
       toast.custom(
         <CustomToast type={"success"} description={res.data.message} />,
       );
