@@ -18,7 +18,7 @@ import { formatDate } from "@/helper/Date";
 import useAuthHook from "@/hooks/useAuthHook";
 import useHandleForm from "@/hooks/useHandleForm";
 import { AnimatePresence } from "framer-motion";
-import { Activity, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { CgProfile } from "react-icons/cg";
 import { GrShieldSecurity } from "react-icons/gr";
@@ -117,9 +117,9 @@ const Profile = () => {
 const Security = () => {
   const { values, resetForm, handleSubmit, errors, isLoading, handleChange } =
     useHandleForm({
-      currentPassword: "Himan@124",
-      password: "Himan@124",
-      confirmPassword: "Himan@124",
+      currentPassword: "",
+      password: "",
+      confirmPassword: "",
     });
   const onSubmit = async () => {
     try {
@@ -305,17 +305,17 @@ const tabs = [
   {
     name: "Profile",
     icon: CgProfile,
-    component: <Profile />,
+    component: Profile,
   },
   {
     name: "Security",
     icon: MdOutlineManageAccounts,
-    component: <Security />,
+    component: Security,
   },
   {
     name: "Account",
     icon: GrShieldSecurity,
-    component: <Account />,
+    component: Account,
   },
 ];
 
@@ -339,14 +339,9 @@ const Setting = () => {
             ))}
           </div>
           <div className="full bg-page col-span-2 rounded-lg">
-            {tabs.map((tab, index) => (
-              <Activity
-                key={tab.name}
-                mode={currTab === index ? "visible" : "hidden"}
-              >
-                {tab.component}
-              </Activity>
-            ))}
+            {tabs.map(
+              (tab, ind) => currTab === ind && <tab.component key={tab.name} />,
+            )}
           </div>
         </div>
       </div>
