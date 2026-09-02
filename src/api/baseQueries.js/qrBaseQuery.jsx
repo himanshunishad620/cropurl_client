@@ -31,7 +31,6 @@ export const qrBaseQuery = async (args, api, extraOptions) => {
 
   const result = await baseQuery(args, api, extraOptions);
 
-  console.log("Base", result);
   // Handle request errors
   switch (result.error?.status) {
     case "TIMEOUT_ERROR":
@@ -52,7 +51,6 @@ export const qrBaseQuery = async (args, api, extraOptions) => {
 
     case "FETCH_ERROR":
     case "ERR_NAME_NOT_RESOLVED":
-      console.log("FetchError");
       toast.custom(
         <CustomToast type="error" description="Connection Problem!" />,
         {
@@ -71,8 +69,6 @@ export const qrBaseQuery = async (args, api, extraOptions) => {
     default:
       // Handle server errors
       if (result.error) {
-        console.log(result.error.data);
-
         toast.custom(
           <CustomToast
             type="error"
