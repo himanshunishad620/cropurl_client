@@ -27,11 +27,12 @@ const Login = () => {
     try {
       const res = await axiosApi.post("/auth/login", values);
       setAuth(true, res.data.user);
+      console.log(res);
+      console.log("himanshu");
       localStorage.setItem("isAuthenticated", true);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       localStorage.setItem("wasLoggedOut", false);
-      console.log(res);
-      console.log("himanshu");
+
       toast.custom(
         <CustomToast type={"success"} description={res.data.message} />,
       );
