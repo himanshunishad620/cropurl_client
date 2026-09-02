@@ -470,12 +470,12 @@ const SuccessPage = ({ handleShow, data }) => {
             className="full center row-span-4 flex flex-col justify-between rounded-lg p-3"
           >
             <p className="title-sm mt-2">QR Code Preview</p>
-            <img
+            {/* <img
               style={{ boxShadow: "0 0  10px 1px rgb(0,0,0,0.1)" }}
               className="border-brand h-60 w-60 rounded-lg border-2 p-2"
               src={data.imgUrl}
               alt=""
-            />
+            /> */}
             <div className="flex w-full gap-3">
               <Button
                 onClick={() =>
