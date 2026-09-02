@@ -49,6 +49,7 @@ export const qrBaseQuery = async (args, api, extraOptions) => {
       };
 
     case "FETCH_ERROR":
+      console.log("FetchError");
       toast.custom(
         <CustomToast type="error" description="Connection Problem!" />,
         {
