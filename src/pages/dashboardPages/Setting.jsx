@@ -42,6 +42,7 @@ const Profile = () => {
     try {
       const res = await updateProfile(values).unwrap();
       toast.custom(<CustomToast type={"success"} description={res.message} />);
+      console.log(res);
     } catch (error) {
       console.log(error);
     }

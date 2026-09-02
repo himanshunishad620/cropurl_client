@@ -36,6 +36,7 @@ const Login = () => {
       );
       navigate("/dashboard", { replace: true });
     } catch (err) {
+      console.log(err);
       toast.custom(<CustomToast type={"error"} description={err.message} />);
     }
   };
