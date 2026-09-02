@@ -67,8 +67,6 @@ export const settingBaseQuery = async (args, api, extraOptions) => {
     default:
       // Handle server errors
       if (result.error) {
-        console.log(result.error.data);
-
         toast.custom(
           <CustomToast
             type="error"

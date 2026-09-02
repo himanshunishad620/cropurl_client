@@ -26,18 +26,15 @@ const Login = () => {
     localStorage.setItem("password", checked ? values.password : "");
     try {
       const res = await axiosApi.post("/auth/login", values);
-      console.log(res);
-      console.log("himanshu");
+      setAuth(true, res.data.user);
       localStorage.setItem("isAuthenticated", true);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       localStorage.setItem("wasLoggedOut", false);
-      setAuth(true, res.data.user);
       toast.custom(
         <CustomToast type={"success"} description={res.data.message} />,
       );
       navigate("/dashboard", { replace: true });
     } catch (err) {
-      console.log(err);
       toast.custom(<CustomToast type={"error"} description={err.message} />);
     }
   };
