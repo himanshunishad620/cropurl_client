@@ -47,13 +47,7 @@ const Navbar = () => {
     <div className="bg-surface flex h-15 w-full items-center justify-between px-50">
       <Link to="/" replace>
         <span className="flex items-center">
-          <img src="/logo.svg" alt="" className="h-18" />
-
-          {/* <p className="subheading font-bold">QR</p>
-
-          <p className="subheading from-brand bg-linear-to-r to-purple-600 bg-clip-text font-bold text-transparent">
-            Pilot
-          </p> */}
+          <img src="/transparent_blue_black.svg" alt="" className="h-15" />
         </span>
       </Link>
 

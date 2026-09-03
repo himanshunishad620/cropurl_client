@@ -14,7 +14,7 @@ const features = [
     icon: FiLink,
     iconColor: "text-blue-600",
     iconBgColor: "bg-blue-100",
-    title: "Short Links",
+    title: "Crop Links",
     description:
       "Create clean, memorable short links that are easy to share, manage, and track from one centralized dashboard.",
   },

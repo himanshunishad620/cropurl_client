@@ -103,7 +103,7 @@ const Footer = () => {
         {/* Brand information */}
         <div className="full flex flex-col justify-between">
           <span className="flex items-center">
-            <img src="/footer.svg" alt="" className="h-20" />
+            <img src="/transparent_white_blue.svg" alt="" className="h-20" />
             {/* <p className="section-title font-bold">QR</p>
             <p className="section-title from-brand bg-linear-to-r to-purple-600 bg-clip-text font-bold text-transparent">
               Pilot
@@ -157,7 +157,7 @@ const Footer = () => {
       <div className="flex items-center justify-between border-t border-gray-200 pt-6 text-sm">
         <span className="flex items-center">
           <p className="body-sm text-surface pr-2">© 2026 </p>
-          <img src="/logo.svg" alt="" className="h-6" />
+          <img src="/transparent_white_blue.svg" alt="" className="h-5" />
           <p className="text-surface">
             <span className="text-surface mx-2">•</span>
             All rights reserved.

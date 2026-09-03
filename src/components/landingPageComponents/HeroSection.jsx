@@ -111,7 +111,7 @@ const HeroSection = () => {
     >
       {/* Hero content and primary call-to-action section. */}
       <div className="py-20 pl-50">
-        <p className="heading">Shorten URLs.</p>
+        <p className="heading">Crop URLs.</p>
 
         <p className="heading from-brand bg-linear-to-r to-purple-600 bg-clip-text font-bold text-transparent">
           Create Smarter.
@@ -194,7 +194,7 @@ const HeroSection = () => {
             className="w-100 items-start gap-3 p-10 shadow-sm"
           >
             <div>
-              <p className="title-sm text-left">Shorten your first URL</p>
+              <p className="title-sm text-left">Crop your first URL</p>
               <p className="label text-body">
                 Paste any url and get a shortern url instantly.
               </p>

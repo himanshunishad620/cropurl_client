@@ -48,7 +48,7 @@ const HowWorks = () => {
     >
       {/* Section heading. */}
       <p className="section-title mb-10 text-center">
-        How <span className="text-brand">QRPilot</span> Works
+        How <span className="text-brand">CropURL</span> Works
       </p>
 
       {/* Display each step in the workflow. */}
