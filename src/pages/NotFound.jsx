@@ -1,5 +1,4 @@
 import { HiOutlineHome } from "react-icons/hi";
-import { TbQrcode } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
 // Displays a fallback page for unknown routes.
@@ -20,9 +19,8 @@ const NotFound = () => {
 
         <p className="mx-auto mt-4 max-w-md text-base leading-7 text-slate-500">
           The page you're looking for doesn't exist or may have been moved.
-          Please check the URL or head back to QRPilot.
+          Please check the URL or head back to CropURL.
         </p>
-
 
         <Link
           className="body-sm link my-4 flex items-center justify-center gap-2"
@@ -32,8 +30,7 @@ const NotFound = () => {
         </Link>
 
         <div className="mt-12 flex items-center justify-center gap-2 text-sm text-slate-400">
-          <TbQrcode size={18} />
-          <span>QRPilot</span>
+          <span>cropurl.in</span>
         </div>
       </div>
     </div>
