@@ -20,7 +20,7 @@ const QRList = ({ qr, isSelected, handleSelectChange }) => {
       />
 
       {/* QR Image */}
-      {/* <img className="h-20 w-20 object-contain" src={qr.imgUrl} alt="" /> */}
+      <img className="h-20 w-20 object-contain" src={qr.imgUrl} alt="" />
 
       {/* Name and creation date */}
       <div className="min-w-0">
