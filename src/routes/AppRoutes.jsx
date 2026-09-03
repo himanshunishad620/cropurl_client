@@ -46,7 +46,7 @@ const AppRoutes = () => {
 
         {/* Email verification */}
         <Route path="/verifyEmail/:token" element={<EmailVerification />} />
-
+        <Route path="/resetPassword/:token" element={<ResetPassword />} />
         <Route
           path="/verifyUpdateEmail/:token"
           element={<UpdateEmailVerification />}
@@ -64,7 +64,6 @@ const AppRoutes = () => {
           <Route index element={<Login />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="forgotPassword" element={<ForgotPassword />} />
-          <Route path="resetPassword/:token" element={<ResetPassword />} />
         </Route>
 
         {/* Dashboard */}
