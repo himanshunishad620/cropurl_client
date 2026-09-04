@@ -72,12 +72,7 @@ const ImportCSV = ({ handleImportShow }) => {
 
   // Submit the validated QR data
   const handleCreate = async () => {
-    try {
-      const res = await createQRs({ qr: validData }).unwrap();
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
+    await createQRs({ qr: validData }).unwrap();
   };
 
   // Reset the import flow
@@ -423,8 +418,6 @@ const CreateQRs = ({
   handlePre,
   handleReset,
 }) => {
-  console.log(validData);
-
   return (
     <React.Fragment>
       <p className="title-sm text-body">Ready to upload</p>

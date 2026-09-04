@@ -5,6 +5,7 @@ import Dialog from "@/components/UI/Dialog";
 import IconButton from "@/components/UI/IconButton";
 import SelectInput from "@/components/UI/SelectInput";
 import StatusPage from "@/components/UI/StatusPage";
+import { exportCSV } from "@/helper/CSV";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -70,7 +71,6 @@ const QRListPage = () => {
     }
   };
   const handleQueryChange = (e) => {
-    console.log(e.target.value);
     setDebounceValue(e.target.value);
   };
   const handleStatusChange = (index) => {
@@ -89,27 +89,9 @@ const QRListPage = () => {
   // const handlePageChange = (index) => {
   //   setPageIndex(index);
   // };
-  // Exports the currently filtered QR data.
-  const handleExport = async () => {
-    const { default: exportFromJSON } = await import("json-to-csv-export");
 
-    exportFromJSON({
-      data: data?.arr?.map((qr) => {
-        return {
-          Name: qr.name,
-          DestinationURL: qr.destinationURL,
-          Status: qr.isActive,
-          Date: qr.createdAt,
-          Updated: qr.updatedAt,
-          Actions: qr.totalEngagement,
-          Slug: qr.shortCode,
-          QRCode: qr.imgUrl,
-        };
-      }),
-      fileName: new Date().toISOString().split("T")[0],
-      exportType: "csv",
-    });
-  };
+  // Exports the currently filtered QR data.
+  const handleExport = () => exportCSV(data?.arr);
   const handleShowDialog = () => {
     if (!selected.length)
       return toast.custom(

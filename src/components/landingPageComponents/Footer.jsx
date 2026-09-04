@@ -13,7 +13,7 @@ const contactInfo = [
   {
     icon: MdEmail,
     title: "Email",
-    value: "support@qrpilot.com",
+    value: "support@cropurl.in",
     iconColor: "text-blue-600",
     iconBgColor: "bg-blue-100",
   },
@@ -27,7 +27,7 @@ const contactInfo = [
   {
     icon: FaLocationDot,
     title: "Location",
-    value: "India",
+    value: "Gorakhpur, Uttar Pradesh, India",
     iconColor: "text-green-600",
     iconBgColor: "bg-green-100",
   },
@@ -104,14 +104,10 @@ const Footer = () => {
         <div className="full flex flex-col justify-between">
           <span className="flex items-center">
             <img src="/transparent_white_blue.svg" alt="" className="h-20" />
-            {/* <p className="section-title font-bold">QR</p>
-            <p className="section-title from-brand bg-linear-to-r to-purple-600 bg-clip-text font-bold text-transparent">
-              Pilot
-            </p> */}
           </span>
 
           <p className="label text-surface w-80">
-            QRPilot is an open-source tool designed to generate, manage, and
+            CropURL is an open-source tool designed to generate, manage, and
             track dynamic QR codes instantly. Built for seamless integration, it
             helps developers and businesses automate QR workflows with a
             powerful API and intuitive user interface.
@@ -165,7 +161,7 @@ const Footer = () => {
         </span>
 
         <p className="text-surface">
-          Built with <span className="text-red-500">♥</span> for smarter links
+          Built with <span className="text-dred-500">♥</span> for smarter links
         </p>
       </div>
     </motion.section>

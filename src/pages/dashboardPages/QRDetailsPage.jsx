@@ -38,7 +38,6 @@ const QRDetailsPage = () => {
     error,
   } = useGetAnalyticsQuery(shortCode);
   // Displays the server error when analytics cannot be loaded.
-  if (error) console.log(error);
   if (isError)
     return (
       <div className="full center">
@@ -178,9 +177,7 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
           description={"QR updated succesfully!"}
         />,
       );
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   // Copies the tracking URL to the clipboard.
@@ -204,10 +201,9 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
     setStatus(data?.isActive);
   }, [data]);
 
-  // if (error) console.log(error);
-  if (isError)
+  if (error)
     return (
-      <div className="full center">
+      <div className="full row-span-9">
         <StatusPage
           key="error"
           type="error"

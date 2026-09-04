@@ -22,14 +22,12 @@ const ResetPassword = () => {
   // Sends the new password to the server.
   const onSubmit = async (values) => {
     try {
-      const res = await axiosApi.post("/auth/resetPassword", {
+      await axiosApi.post("/auth/resetPassword", {
         ...values,
         rawToken: token,
       });
-      console.log(res);
       setFormSubmitted(true);
     } catch (err) {
-      console.log(err);
       toast.custom(<CustomToast type={"error"} description={err.message} />);
     }
   };
@@ -103,12 +101,7 @@ const ResetPassword = () => {
           helperText="Repeat new password"
         />
         <div className="my-3 w-full">
-          <Button
-            label="Reset Password"
-            isLoading={isLoading}
-            onClick={() => console.log("Form Submisson")}
-            left={false}
-          />
+          <Button label="Reset Password" isLoading={isLoading} left={false} />
         </div>
       </FormContainer>
     </div>

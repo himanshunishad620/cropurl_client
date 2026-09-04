@@ -156,15 +156,13 @@ const CreateQRPage = () => {
     const shortCode = nanoid(6);
     try {
       const imgUrl = await generateDataURL(
-        { ...getQROptions(), value: `${config.baseUrl}/q/${shortCode}` },
+        { ...getQROptions(), value: `${config.clickUrl}/q/${shortCode}` },
         "png",
       );
       const data = await createQR({ ...values, imgUrl, shortCode }).unwrap();
       setResponse(data);
       setShow(true);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleShow = () => {

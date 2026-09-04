@@ -9,7 +9,6 @@ import CheckBox from "../UI/CheckBox";
 
 const QRList = ({ qr, isSelected, handleSelectChange }) => {
   const navigate = useNavigate();
-  console.log(qr);
   return (
     <div
       className={`${isSelected ? "border-brand " : "border-surface"} bg-surface mb-3 grid w-full grid-cols-[20px_80px_1fr_1.5fr_1fr_100px_100px] items-center gap-4 rounded-md border-2 p-2 px-7 shadow-sm`}

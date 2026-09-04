@@ -27,7 +27,6 @@ const Navbar = () => {
     try {
       await axiosApi.get("/auth/logout");
     } catch (error) {
-      console.log(error);
       localStorage.setItem("wasLoggedOut", true);
     } finally {
       setAuth(false, null);
@@ -88,7 +87,9 @@ const Navbar = () => {
             </div>
 
             <div className="w-30">
-              <Button label="Register" icon={MdOutlineAccountCircle} />
+              <Link to="/auth/signup">
+                <Button label="SignUp" icon={MdOutlineAccountCircle} />
+              </Link>
             </div>
           </>
         )}

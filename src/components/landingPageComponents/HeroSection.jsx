@@ -64,7 +64,7 @@ const HeroSection = () => {
 
   // Creates a short URL using the entered destination URL.
   const onSubmit = async (values) => {
-    const shortCode = nanoid(7);
+    const shortCode = nanoid(6);
 
     try {
       const res = await axiosApi.post("/data/createFIrstUrl", {

@@ -18,7 +18,7 @@ const contactInfo = [
   {
     icon: MdEmail,
     title: "Email",
-    value: "support@qrpilot.com",
+    value: "support@cropurl.in",
     iconColor: "text-blue-600",
     iconBgColor: "bg-blue-100",
   },
@@ -32,7 +32,7 @@ const contactInfo = [
   {
     icon: FaLocationDot,
     title: "Location",
-    value: "India",
+    value: "Gorakhpur,Uttar Pradesh, India",
     iconColor: "text-green-600",
     iconBgColor: "bg-green-100",
   },
@@ -181,7 +181,7 @@ const GetIntoTouch = () => {
               onChange={handleChange}
               value={values.message}
               error={errors.message}
-              placeholder="e.g. type you message"
+              placeholder="e.g. type your message"
               label="Message"
               helperText="Please enter your message"
             />

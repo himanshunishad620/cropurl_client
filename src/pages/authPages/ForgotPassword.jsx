@@ -19,11 +19,9 @@ const ForgotPassword = () => {
   // Sends the reset link request.
   const onSubmit = async (values) => {
     try {
-      const res = await axiosApi.post("/auth/forgotPassword", values);
-      console.log(res);
+      await axiosApi.post("/auth/forgotPassword", values);
       setFormSubmitted(true);
     } catch (err) {
-      console.log(err);
       toast.custom(<CustomToast type={"error"} description={err.message} />, {
         id: "forgotPassword",
       });
@@ -70,12 +68,7 @@ const ForgotPassword = () => {
             Login
           </Link>
         </span>
-        <Button
-          label="Send Reset Link"
-          isLoading={isLoading}
-          onClick={() => console.log("Form Submisson")}
-          left={false}
-        />
+        <Button label="Send Reset Link" isLoading={isLoading} left={false} />
       </FormContainer>
     </div>
   );

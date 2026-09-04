@@ -18,11 +18,7 @@ const SideBar = () => {
       {/* Sidebar navigation */}
       <div className="flex flex-col items-center gap-1">
         {/* Application logo */}
-        {/* <img
-          src="/qrpilotlogo.png"
-          alt=""
-          className="bg-brand-light my-5 h-50 w-50 rounded-lg p-5"
-        /> */}
+
         <span className="bg-brand-light flex w-full items-center gap-2 rounded-2xl px-8 py-8">
           <MdOutlineSpaceDashboard className="text-brand text-4xl" />
           <p className="subheading text-brand w-full text-left">Dashboard</p>

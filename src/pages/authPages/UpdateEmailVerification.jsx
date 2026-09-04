@@ -12,10 +12,9 @@ const UpdateEmailVerification = () => {
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        const res = await axiosApi.patch("/auth/updateEmail", {
+        await axiosApi.patch("/auth/updateEmail", {
           rawToken: token,
         });
-        console.log(res);
       } catch (err) {
         setError(err);
       } finally {

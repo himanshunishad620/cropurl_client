@@ -16,18 +16,17 @@ import { Link } from "react-router-dom";
 const SignUp = () => {
   const { values, errors, handleChange, handleSubmit, isLoading } =
     useHandleForm({
-      firstName: "Himanshu",
-      lastName: "Nishad",
-      email: "himanshunishad620@gmail.com",
-      password: "Himan@123",
-      confirmPassword: "Himan@123",
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     });
   const [formSubmitted, setFormSubmitted] = useState(false);
   // Requests a verification link for the new account.
   const onSubmit = async (values) => {
     try {
       const res = await axiosApi.post("/auth/generateVerificationLink", values);
-      console.log(res);
       setFormSubmitted(true);
     } catch (err) {
       toast.custom(<CustomToast type={"error"} description={err.message} />, {
@@ -142,12 +141,7 @@ const SignUp = () => {
             Login
           </Link>
         </span>
-        <Button
-          label="Sign Up"
-          isLoading={isLoading}
-          onClick={() => console.log("Form Submisson")}
-          left={false}
-        />
+        <Button label="Sign Up" isLoading={isLoading} left={false} />
       </FormContainer>
     </div>
   );

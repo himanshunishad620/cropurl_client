@@ -223,8 +223,7 @@ const Account = () => {
   const handleDeleteAccount = async () => {
     setDeletingAccount(true);
     try {
-      const res = await axiosApi.delete("/data/deleteAccount");
-      console.log(res);
+      await axiosApi.delete("/data/deleteAccount");
       setAuth(false, null);
       window.location.replace("/");
     } catch (error) {

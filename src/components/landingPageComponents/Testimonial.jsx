@@ -8,8 +8,8 @@ const testimonials = [
     position: "Product Designer",
     rating: 3,
     comment:
-      "QRPilot makes creating and managing QR codes incredibly easy. I can generate a code in seconds and track scans without dealing with complicated analytics.",
-    dpUrl: "/profile.jpg",
+      "CropURL makes creating and managing QR codes incredibly easy. I can generate a code in seconds and track scans without dealing with complicated analytics.",
+    dpUrl: "https://randomuser.me/api/portraits/med/men/75.jpg",
   },
   {
     name: "Priya Verma",
@@ -17,15 +17,15 @@ const testimonials = [
     rating: 5,
     comment:
       "The dashboard is clean, fast, and really easy to understand. I especially like being able to see clicks, scans, and performance trends all in one place.",
-    dpUrl: "/profile.jpg",
+    dpUrl: "https://randomuser.me/api/portraits/med/women/75.jpg",
   },
   {
     name: "Rahul Mehta",
     position: "Startup Founder",
     rating: 4,
     comment:
-      "I have been using QRPilot to manage my short links and QR codes, and it has made tracking campaigns much simpler. The analytics are clear and genuinely useful.",
-    dpUrl: "/profile.jpg",
+      "I have been using CropURL to manage my short links and QR codes, and it has made tracking campaigns much simpler. The analytics are clear and genuinely useful.",
+    dpUrl: "https://randomuser.me/api/portraits/med/men/76.jpg",
   },
 ];
 
