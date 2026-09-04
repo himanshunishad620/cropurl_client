@@ -9,7 +9,7 @@ const Layout = () => {
       <Navbar />
       <div className="bg-page grid h-[calc(100vh-60px)] grid-cols-4 gap-3">
         <SideBar />
-        <div className="col-span-3 w-full">
+        <div className="col-span-3 w-full scrollbar-none overflow-scroll">
           <Outlet />
         </div>
       </div>
