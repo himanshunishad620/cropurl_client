@@ -94,8 +94,19 @@ const QRListPage = () => {
     const { default: exportFromJSON } = await import("json-to-csv-export");
 
     exportFromJSON({
-      data: data?.arr,
-      fileName: "qr-codes",
+      data: data?.arr?.map((qr) => {
+        return {
+          Name: qr.name,
+          DestinationURL: qr.destinationURL,
+          Status: qr.isActive,
+          Date: qr.createdAt,
+          Updated: qr.updatedAt,
+          Actions: qr.totalEngagement,
+          Slug: qr.shortCode,
+          QRCode: qr.imgUrl,
+        };
+      }),
+      fileName: new Date().toISOString().split("T")[0],
       exportType: "csv",
     });
   };

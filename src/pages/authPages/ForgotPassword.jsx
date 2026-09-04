@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 const ForgotPassword = () => {
   const { values, errors, handleChange, handleSubmit, isLoading } =
     useHandleForm({
-      email: "himanshunishad620@gmail.com",
+      email: "",
     });
   const [formSubmitted, setFormSubmitted] = useState(false);
   // Sends the reset link request.

@@ -186,7 +186,7 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
   // Copies the tracking URL to the clipboard.
   const handleCopy = async () => {
     await navigator.clipboard.writeText(
-      `${config.clickUrl}/c/${data?.shortCode}`,
+      `${config.clickUrl}/${data?.shortCode}`,
     );
     toast.custom(<CustomToast type={"success"} description={"URL copied"} />);
   };
@@ -195,7 +195,7 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
     window.open(`${config.clickUrl}/q/${data.shortCode}`, "_blank");
   };
   const handleUrlClick = () => {
-    window.open(`${config.clickUrl}/c/${data.shortCode}`, "_blank");
+    window.open(`${config.clickUrl}/${data.shortCode}`, "_blank");
   };
 
   useEffect(() => {

@@ -153,10 +153,10 @@ const CreateQRPage = () => {
 
   // Generates the QR image and creates the QR record.
   const handleFormSubmit = async () => {
-    const shortCode = nanoid(7);
+    const shortCode = nanoid(6);
     try {
       const imgUrl = await generateDataURL(
-        { ...getQROptions(), value: `${config.baseUrl}/qr/${shortCode}` },
+        { ...getQROptions(), value: `${config.baseUrl}/q/${shortCode}` },
         "png",
       );
       const data = await createQR({ ...values, imgUrl, shortCode }).unwrap();
@@ -521,7 +521,7 @@ const SuccessPage = ({ handleShow, data }) => {
             <ListItem
               label="Click Url"
               type={"url"}
-              value={`${config.clickUrl}/c/${data.shortCode}`}
+              value={`${config.clickUrl}/${data.shortCode}`}
               icon={FaLink}
             />
             <ListItem
