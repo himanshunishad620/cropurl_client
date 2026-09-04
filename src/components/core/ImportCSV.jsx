@@ -15,6 +15,7 @@ import { IoCloudDoneOutline, IoCloudUploadOutline } from "react-icons/io5";
 import { LuClipboardList } from "react-icons/lu";
 import { MdErrorOutline } from "react-icons/md";
 import { PiFileCsv } from "react-icons/pi";
+import { RiResetLeftFill } from "react-icons/ri";
 import Button from "../UI/Button";
 import LightButton from "../UI/LightButton";
 import Stepper from "../UI/Stepper";
@@ -510,8 +511,8 @@ const CreateQRs = ({
 
             <div className="w-1/3">
               <Button
-                label="Upload More"
-                icon={AiOutlineCloudUpload}
+                label="Retry!"
+                icon={RiResetLeftFill}
                 onClick={handleReset}
               />
             </div>

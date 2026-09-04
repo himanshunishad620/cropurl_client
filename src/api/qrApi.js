@@ -17,8 +17,8 @@ export const qrApi = createApi({
 
     // Fetch QR codes with filtering, sorting, pagination, and search
     getQRs: builder.query({
-      query: ({ order, status, page, search, limit }) =>
-        `/fetchAllQr?order=${order}&status=${status}&page=${page}&search=${search}&limit=${limit}`,
+      query: ({ order, status, search, sort }) =>
+        `/fetchAllQr?order=${order}&status=${status}&search=${search}&sort=${sort}`,
       transformResponse: (response) => response.data,
       providesTags: ["getAllQrs"],
     }),

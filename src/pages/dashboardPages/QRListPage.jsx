@@ -8,6 +8,7 @@ import StatusPage from "@/components/UI/StatusPage";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { LuRefreshCw } from "react-icons/lu";
 import {
   MdOutlineAddBox,
   MdOutlineArrowBackIos,
@@ -19,8 +20,9 @@ import { useNavigate } from "react-router-dom";
 import LoadingPage from "../LoadingPage";
 
 const statusOptions = ["All", "Active", "Inactive"];
-const orderOptions = ["Newest", "Oldest"];
-const limitOptions = [10, 20, 30];
+// const limitOptions = [5, 10];
+const orderOptions = ["Ascending", "Descending"];
+const sortOptions = ["Date", "Engagement"];
 
 // Manages the QR list, filters, search, and pagination.
 const QRListPage = () => {
@@ -31,19 +33,22 @@ const QRListPage = () => {
   const [selected, setSelected] = useState([]);
   const [orderIndex, setOrderIndex] = useState(0);
   const [limitIndex, setLimitIndex] = useState(0);
+  const [sortIndex, setSortIndex] = useState(0);
   const [pageIndex, setPageIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [debounceValue, setDebounceValue] = useState("");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   // Fetches QR codes using the current list filters.
-  const { data, isLoading, isFetching, isError, error } = useGetQRsQuery({
-    order: orderOptions[orderIndex],
-    status: statusOptions[statusIndex],
-    page: pageIndex,
-    search: searchQuery,
-    limit: limitOptions[limitIndex],
-  });
+  const { data, isLoading, isFetching, isError, error, refetch } =
+    useGetQRsQuery({
+      order: orderOptions[orderIndex],
+      status: statusOptions[statusIndex],
+      // page: pageIndex,
+      search: searchQuery,
+      sort: sortOptions[sortIndex],
+      // limit: limitOptions[limitIndex],
+    });
   const [deleteQRs, { isLoading: deleting }] = useDeleteQRsMutation();
   // Debounces search input before updating the API query.
   useEffect(() => {
@@ -71,15 +76,19 @@ const QRListPage = () => {
   const handleStatusChange = (index) => {
     setStatusIndex(index);
   };
-  const handleLimitChange = (index) => {
-    setLimitIndex(index);
+  // const handleLimitChange = (index) => {
+  //   setLimitIndex(index);
+  // };
+  const handleSortChange = (index) => {
+    setSortIndex(index);
   };
+
   const handleOrderChange = (index) => {
     setOrderIndex(index);
   };
-  const handlePageChange = (index) => {
-    setPageIndex(index);
-  };
+  // const handlePageChange = (index) => {
+  //   setPageIndex(index);
+  // };
   // Exports the currently filtered QR data.
   const handleExport = async () => {
     const { default: exportFromJSON } = await import("json-to-csv-export");
@@ -113,7 +122,7 @@ const QRListPage = () => {
 
   return (
     <div className="full p-3 pl-0">
-      <div className="full bg-surface flex flex-col justify-between rounded-lg p-5 shadow-sm">
+      <div className="full bg-surface flex flex-col justify-start gap-5 rounded-lg p-5 shadow-sm">
         <AnimatePresence>
           {showDeleteDialog && (
             <Dialog
@@ -130,6 +139,7 @@ const QRListPage = () => {
         <div className="flex w-full justify-between pb-4">
           <p className="subheading">QR Codes</p>
           <div className="flex gap-5">
+            <IconButton icon={LuRefreshCw} onClick={refetch} />
             <IconButton icon={RiDeleteBin6Line} onClick={handleShowDialog} />
             <IconButton icon={TbWorldUpload} onClick={handleExport} />
             <IconButton
@@ -157,6 +167,14 @@ const QRListPage = () => {
             selectedIndex={statusIndex}
             onChange={handleStatusChange}
           />
+
+          <SelectInput
+            label={"Sort:"}
+            options={sortOptions}
+            width={"w-full"}
+            selectedIndex={sortIndex}
+            onChange={handleSortChange}
+          />
           <SelectInput
             label={"Order:"}
             options={orderOptions}
@@ -164,15 +182,8 @@ const QRListPage = () => {
             selectedIndex={orderIndex}
             onChange={handleOrderChange}
           />
-          <SelectInput
-            label={"Limit:"}
-            options={limitOptions}
-            width={"w-full"}
-            selectedIndex={limitIndex}
-            onChange={handleLimitChange}
-          />
         </div>
-        <div className="flex w-full justify-between py-3">
+        {/* <div className="flex w-full justify-between py-3">
           <p className="label text-body">
             Total no of QR's : <span className="bold-label">{data?.total}</span>
           </p>
@@ -187,8 +198,8 @@ const QRListPage = () => {
             Page <span className="bold-label">{data?.pageNo}</span> of{" "}
             <span className="bold-label">{data?.totalPages || 1}</span>
           </p>
-        </div>
-        <div className="bg-page scrollbar-hide mb-5 h-[calc(100vh-300px)] overflow-scroll rounded-lg p-3">
+        </div> */}
+        <div className="bg-page scrollbar-hide h-[calc(100vh-300px)] grow overflow-scroll rounded-lg px-3 pt-3">
           {isFetching && <LoadingPage />}
           {isError && !data?.arr?.length && (
             <StatusPage
@@ -221,13 +232,13 @@ const QRListPage = () => {
             />
           ))}
         </div>
-        <Pagination
+        {/* <Pagination
           onClick={handlePageChange}
           pageNo={data?.pageNo}
           totalPages={data?.totalPages}
           next={data?.hasNextPage}
           pre={data?.hasPreviousPage}
-        />
+        /> */}
       </div>
     </div>
   );

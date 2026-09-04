@@ -1,6 +1,7 @@
 import { formatDate } from "@/helper/Date";
 import { FaRegDotCircle } from "react-icons/fa";
 import { GrFormView } from "react-icons/gr";
+import { LuMousePointerClick } from "react-icons/lu";
 import { MdDateRange } from "react-icons/md";
 import { RiEditLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +12,7 @@ const QRList = ({ qr, isSelected, handleSelectChange }) => {
   console.log(qr);
   return (
     <div
-      className={`${isSelected ? "border-brand " : "border-surface"} bg-surface mb-3 grid w-full grid-cols-[20px_80px_1fr_1.5fr_1fr_100px_100px] items-center gap-4 rounded-md border-2 p-2 pr-7 shadow-sm`}
+      className={`${isSelected ? "border-brand " : "border-surface"} bg-surface mb-3 grid w-full grid-cols-[20px_80px_1fr_1.5fr_1fr_100px_100px] items-center gap-4 rounded-md border-2 p-2 px-7 shadow-sm`}
     >
       {/* Select QR */}
       <CheckBox
@@ -49,8 +50,8 @@ const QRList = ({ qr, isSelected, handleSelectChange }) => {
       </div>
 
       {/* Short code */}
-      <p className="bg-success-bg text-success bold-label w-30 rounded-sm py-1 text-center">
-        {qr.shortCode}
+      <p className="subheading text-body flex items-center gap-2">
+        <LuMousePointerClick /> {qr.totalEngagement}
       </p>
 
       {/* QR status */}

@@ -38,14 +38,15 @@ const QRDetailsPage = () => {
     error,
   } = useGetAnalyticsQuery(shortCode);
   // Displays the server error when analytics cannot be loaded.
+  if (error) console.log(error);
   if (isError)
     return (
       <div className="full center">
         <StatusPage
           key="error"
           type="error"
-          title={error?.status}
-          description={error?.message}
+          title={error?.data?.status}
+          description={error?.data?.message}
         />
       </div>
     );
@@ -131,7 +132,7 @@ export default QRDetailsPage;
 // Manages QR details, editing, downloads, and deletion.
 const QRDetailsSection = ({ dataFetching, shortCode }) => {
   const navigate = useNavigate();
-  const { data, isFetching, error } = useGetQRQuery(shortCode);
+  const { data, isFetching, isError, error } = useGetQRQuery(shortCode);
   const [updateQR, { isLoading: updating }] = useUpdateQRMutation(shortCode);
   const [deleteQR, { isLoading: deleting }] = useDeleteQRMutation(shortCode);
   const { values, errors, handleChange, handleSubmit, isLoading } =
@@ -203,8 +204,19 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
     setStatus(data?.isActive);
   }, [data]);
 
-  if (dataFetching) return <LoadingSkeleton />;
-
+  // if (error) console.log(error);
+  if (isError)
+    return (
+      <div className="full center">
+        <StatusPage
+          key="error"
+          type="error"
+          title={error?.data?.status}
+          description={error?.data?.message}
+        />
+      </div>
+    );
+  if (dataFetching || isFetching) return <LoadingSkeleton />;
   return (
     <div className="full bg-surface row-span-9 flex flex-col rounded-lg px-5 pt-5">
       <AnimatePresence>
@@ -222,7 +234,7 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
       </AnimatePresence>
       <div className="flex justify-between">
         <p className="subheading text-body">QR Details</p>
-        <div className="flex gap-3">
+        <div className="flex gap-5">
           <IconButton icon={MdContentCopy} onClick={handleCopy} />
           <IconButton icon={TbHandClick} onClick={handleUrlClick} />
           <IconButton icon={MdQrCode2} onClick={handleQRClick} />
