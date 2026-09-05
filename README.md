@@ -6,7 +6,7 @@ CropURL allows users to create short URLs, generate QR codes, and track clicks, 
 
 ## 🚀 Live Demo
 
-**Live:** Add your deployed CropURL URL here
+**Live:** https://cropurl.in
 
 **Frontend Repository:** Add repository URL
 
@@ -22,7 +22,7 @@ CropURL allows users to create short URLs, generate QR codes, and track clicks, 
 - 👥 Track unique visitors/clicks
 - 📈 View 7, 30, and 90-day analytics
 - 🌍 Track visitor locations by city
-- 🌐 Browser and operating-system analytics
+- 🌐 Browser and location analytics
 - 🔍 Search, filter, and sort URLs
 - 📥 Import URLs using CSV
 - 📤 Export URL data to CSV
@@ -37,15 +37,15 @@ CropURL allows users to create short URLs, generate QR codes, and track clicks, 
 
 ### Frontend
 
-**React 19 · Vite · Tailwind CSS · Redux Toolkit · RTK Query · React Router · Axios · Recharts · Formik · Yup · PapaParse**
+**React 19 · Vite · Tailwind CSS · Redux Toolkit · RTK Query · React Router · Axios · Recharts · PapaParse**
 
 ### Backend
 
-**Node.js · Express.js · MongoDB · Mongoose · JWT · bcrypt · Nodemailer · UAParser**
+**Node.js · Express.js · MongoDB · Mongoose · JWT · bcrypt Resend · UAParser**
 
 ### Services & Deployment
 
-**MongoDB Atlas · Cloudinary · Vercel · Netlify · Render**
+**MongoDB Atlas · Vercel · Render**
 
 ---
 
@@ -53,23 +53,21 @@ CropURL allows users to create short URLs, generate QR codes, and track clicks, 
 
 ### Dashboard
 
-![CropURL Dashboard](./screenshots/dashboard.png)
+![CropURL Dashboard](./public/s2.png)
 
-### URL Management
+### URL Management & Analytics
 
-![CropURL URLs](./screenshots/urls.png)
+![CropURL URLs](./public/s3.png)
 
-### Analytics
+### QR Creation
 
-![CropURL Analytics](./screenshots/analytics.png)
-
-> Add your screenshots to a `screenshots` folder in the repository.
+![CropURL Analytics](./public/s1.png)
 
 ---
 
 ## 🧩 Key Technical Highlights
 
-- Built a responsive SPA using **React and Tailwind CSS**
+- Built a SPA using **React and Tailwind CSS**
 - Used **Redux Toolkit and RTK Query** for state and server-state management
 - Designed REST APIs using **Node.js and Express.js**
 - Designed URL and analytics schemas using **MongoDB and Mongoose**
