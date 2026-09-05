@@ -229,7 +229,7 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
         )}
       </AnimatePresence>
       <div className="flex justify-between">
-        <p className="subheading text-body">QR Details</p>
+        <p className="subheading">QR Details</p>
         <div className="flex gap-5">
           <IconButton icon={MdContentCopy} onClick={handleCopy} />
           <IconButton icon={TbHandClick} onClick={handleUrlClick} />

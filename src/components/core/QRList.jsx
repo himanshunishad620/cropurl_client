@@ -1,15 +1,22 @@
 import { formatDate } from "@/helper/Date";
+import toast from "react-hot-toast";
 import { FaRegDotCircle } from "react-icons/fa";
 import { GrFormView } from "react-icons/gr";
 import { LuMousePointerClick } from "react-icons/lu";
 import { MdDateRange } from "react-icons/md";
+import { PiCopySimple } from "react-icons/pi";
 import { RiEditLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import CheckBox from "../UI/CheckBox";
+import CustomToast from "../UI/CustomToast";
 import config from "./../../config/config";
 
 const QRList = ({ qr, isSelected, handleSelectChange }) => {
   const navigate = useNavigate();
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(`${config.clickUrl}/${qr?.shortCode}`);
+    toast.custom(<CustomToast type={"success"} description={"URL copied"} />);
+  };
   return (
     <div
       className={`${isSelected ? "border-brand " : "border-surface"} bg-surface mb-3 grid w-full grid-cols-[20px_80px_1fr_1.5fr_1fr_100px_100px] items-center gap-4 rounded-md border-2 p-2 px-7 shadow-sm`}
@@ -35,15 +42,21 @@ const QRList = ({ qr, isSelected, handleSelectChange }) => {
 
       {/* Destination URL and update date */}
       <div className="min-w-0">
-        <a
-          href={`${config.clickUrl}/${qr.shortCode}`}
-          // href={qr.destinationUrl}
-          className="label link block truncate"
-          title={qr.destinationUrl}
-          target="_blank"
-        >
-          {config.clickUrl + "/" + qr.shortCode}
-        </a>
+        <div className="flex gap-1">
+          <a
+            href={`${config.clickUrl}/${qr.shortCode}`}
+            // href={qr.destinationUrl}
+            className="label link block truncate"
+            title={qr.destinationUrl}
+            target="_blank"
+          >
+            {config.clickUrl + "/" + qr.shortCode}
+          </a>
+          <PiCopySimple
+            onClick={handleCopy}
+            className="text-body cursor-pointer"
+          />
+        </div>
 
         <p className="label text-body mt-1 flex items-center gap-1">
           <RiEditLine className="text-md shrink-0" />
