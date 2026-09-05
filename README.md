@@ -1,9 +1,9 @@
 # CropURL 🔗
 
-> CropURL is a full-stack URL shortener and QR code analytics platform that helps users create, manage, and track short links and QR codes.
-> It provides detailed analytics including clicks, scans, unique visitors, locations, browsers, operating systems, and daily engagement.
-> Built with React.js, Node.js, Express.js, MongoDB, and Redux Toolkit, CropURL combines a responsive dashboard with secure authentication and REST APIs.
-> The project focuses on turning simple links into measurable, data-driven marketing and sharing tools.
+CropURL is a full-stack URL shortener and QR code analytics platform that helps users create, manage, and track short links and QR codes.
+It provides detailed analytics including clicks, scans, unique visitors, locations, browsers, operating systems, and daily engagement.
+Built with React.js, Node.js, Express.js, MongoDB, and Redux Toolkit, CropURL combines a responsive dashboard with secure authentication and REST APIs.
+The project focuses on turning simple links into measurable, data-driven marketing and sharing tools.
 
 CropURL allows users to create short URLs, generate QR codes, and track clicks, scans, unique visitors, locations, browsers, operating systems, and daily engagement through an analytics dashboard.
 
@@ -51,7 +51,7 @@ CropURL allows users to create short URLs, generate QR codes, and track clicks, 
 
 ### Services & Deployment
 
-**MongoDB Atlas · Vercel · Netlify · Render · Custom Domain**
+**MongoDB Atlas · Vercel · Custom Domain**
 
 ---
 
@@ -120,28 +120,8 @@ Redirect to Destination
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/cropurl.git
-cd cropurl
+git clone https://github.com/himanshunishad620/cropurl_client.git
 ```
-
-### Backend
-
-```bash
-cd backend
-npm install
-npm run dev
-```
-
-Create a `backend/.env` file:
-
-```env
-PORT=5000
-MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-FRONTEND_URL=http://localhost:5173
-```
-
-Add the required email and other service configuration as needed.
 
 ### Frontend
 
@@ -151,10 +131,14 @@ npm install
 npm run dev
 ```
 
-Create a `frontend/.env` file:
+Create a `.env` file:
 
 ```env
-VITE_API_URL=http://localhost:5000
+VITE_BASE_URL=<your_backend_url>
+VITE_CLICK_URL=<your_click_scan_backend_url>
+VITE_SERVICE_KEY=<your_emailjs_service_id>
+VITE_TEMPLATE_KEY=<your_emailjs_template_id>
+VITE_PUBLIC_KEY=<your_emailjs_public_key>
 ```
 
 ---
@@ -173,6 +157,16 @@ VITE_API_URL=http://localhost:5000
 **Never commit `.env` files or secrets to GitHub.**
 
 ---
+
+## ⚠️ Backend Dependencies
+
+This frontend requires two separate backend services to be configured and running:
+
+1. **Admin & User Backend** – Handles authentication, user management, URL/QR management, and core application APIs.  
+   **Repository:** https://github.com/himanshunishad620/cropurl_admin_backend.git
+
+2. **Click & Scan Management Backend** – Handles short URL clicks, QR scans, visitor tracking, and analytics data.  
+   **Repository:** https://github.com/himanshunishad620/cropurl_user_backend.git
 
 ## 👨‍💻 Author
 
