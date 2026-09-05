@@ -1,3 +1,4 @@
+import { formatDate } from "@/helper/Date";
 import { useMemo } from "react";
 import {
   Area,
@@ -19,13 +20,23 @@ const seriesColors = {
 // Combine all series into chart data
 function buildData(clicks, scans, total) {
   const length = Math.max(clicks.length, scans.length, total.length);
-
-  return Array.from({ length }, (_, i) => ({
-    index: i + 1,
-    clicks: clicks[i] ?? null,
-    scans: scans[i] ?? null,
-    total: total[i] ?? null,
-  }));
+  const result = [],
+    dates = [];
+  const today = new Date().getDate();
+  for (let i = length - 1; i >= 0; i--) {
+    const newDate = new Date();
+    newDate.setDate(today - i);
+    dates.push(formatDate(newDate));
+  }
+  for (let i = 0; i < length; i++) {
+    result.push({
+      index: dates[i],
+      clicks: clicks[i] ?? null,
+      scans: scans[i] ?? null,
+      total: total[i] ?? null,
+    });
+  }
+  return result;
 }
 
 // Custom tooltip for chart values
@@ -33,7 +44,7 @@ function CustomTooltip({ active, payload, label }) {
   if (active && payload && payload.length) {
     return (
       <div className="bg-page text-body rounded-lg px-3 py-2 text-sm shadow-lg">
-        <p className="mb-1 font-semibold">Day {label}</p>
+        <p className="mb-1 font-semibold">{label}</p>
 
         {payload.map((entry) => (
           <p key={entry.dataKey} style={{ color: seriesColors[entry.dataKey] }}>
