@@ -132,7 +132,6 @@ git clone https://github.com/himanshunishad620/cropurl_client.git
 ```bash
 cd frontend
 npm install
-npm run dev
 ```
 
 Create a `.env` file:
