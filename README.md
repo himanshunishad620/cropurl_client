@@ -13,7 +13,9 @@ CropURL allows users to create short URLs, generate QR codes, and track clicks, 
 
 **Frontend Repository:** https://github.com/himanshunishad620/cropurl_client
 
-**Backend Repository:** Add repository URL
+**Backend Repository 1:** https://github.com/himanshunishad620/cropurl_admin_backend
+
+**Backend Repository 2:** https://github.com/himanshunishad620/cropurl_user_backend
 
 ---
 
@@ -25,7 +27,7 @@ CropURL allows users to create short URLs, generate QR codes, and track clicks, 
 - 👥 Track unique visitors/clicks
 - 📈 View 7, 30, and 90-day analytics
 - 🌍 Track visitor locations by city
-- 🌐 Browser and operating-system analytics
+- 🌐 Browser and location analytics
 - 🔍 Search, filter, and sort URLs
 - 📥 Import URLs using CSV
 - 📤 Export URL data to CSV
