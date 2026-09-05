@@ -6,6 +6,7 @@ import { MdDateRange } from "react-icons/md";
 import { RiEditLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import CheckBox from "../UI/CheckBox";
+import config from "./../../config/config";
 
 const QRList = ({ qr, isSelected, handleSelectChange }) => {
   const navigate = useNavigate();
@@ -35,11 +36,13 @@ const QRList = ({ qr, isSelected, handleSelectChange }) => {
       {/* Destination URL and update date */}
       <div className="min-w-0">
         <a
-          href={qr.destinationUrl}
+          href={`${config.clickUrl}/${qr.shortCode}`}
+          // href={qr.destinationUrl}
           className="label link block truncate"
           title={qr.destinationUrl}
+          target="_blank"
         >
-          {qr.destinationUrl}
+          {config.clickUrl + "/" + qr.shortCode}
         </a>
 
         <p className="label text-body mt-1 flex items-center gap-1">
