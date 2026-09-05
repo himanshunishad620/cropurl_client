@@ -214,7 +214,7 @@ const QRDetailsSection = ({ dataFetching, shortCode }) => {
     );
   if (dataFetching || isFetching) return <LoadingSkeleton />;
   return (
-    <div className="full bg-surface row-span-9 flex flex-col rounded-lg px-5 pt-5">
+    <div className="full bg-surface row-span-9 flex flex-col rounded-lg px-5 pt-5 shadow-sm">
       <AnimatePresence>
         {show && (
           <Dialog

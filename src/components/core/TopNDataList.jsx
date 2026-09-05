@@ -19,7 +19,7 @@ const TopNDataList = ({ title, caption, data, isLoading }) => {
       {/* Data list */}
       <div className="flex max-h-full flex-col justify-between">
         {/* Show empty state when no data is available */}
-        {!Object.keys(data || {})?.length && <Empty size={"text-5xl"} />}
+        {!Object.keys(data || {})?.length && <Empty />}
 
         {/* Render each data item */}
         {Object.entries(data || []).map((pair, ind) => (
