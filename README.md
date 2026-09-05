@@ -145,6 +145,18 @@ VITE_TEMPLATE_KEY=<your_emailjs_template_id>
 VITE_PUBLIC_KEY=<your_emailjs_public_key>
 ```
 
+Start the server
+
+```bash
+npm run dev
+```
+
+The app will be available at:
+
+```bash
+http://localhost:5000
+```
+
 ---
 
 ## 🔐 Security
