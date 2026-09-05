@@ -57,6 +57,10 @@ CropURL allows users to create short URLs, generate QR codes, and track clicks, 
 
 ## 📸 Screenshots
 
+### Landing Page
+
+![CropURL Dashboard](./public/s0.png)
+
 ### Dashboard
 
 ![CropURL Dashboard](./public/s2.png)
