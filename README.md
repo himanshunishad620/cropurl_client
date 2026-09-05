@@ -1,6 +1,9 @@
 # CropURL 🔗
 
-> A full-stack URL shortener and QR analytics platform built with React, Node.js, Express, and MongoDB.
+> CropURL is a full-stack URL shortener and QR code analytics platform that helps users create, manage, and track short links and QR codes.
+> It provides detailed analytics including clicks, scans, unique visitors, locations, browsers, operating systems, and daily engagement.
+> Built with React.js, Node.js, Express.js, MongoDB, and Redux Toolkit, CropURL combines a responsive dashboard with secure authentication and REST APIs.
+> The project focuses on turning simple links into measurable, data-driven marketing and sharing tools.
 
 CropURL allows users to create short URLs, generate QR codes, and track clicks, scans, unique visitors, locations, browsers, operating systems, and daily engagement through an analytics dashboard.
 
@@ -8,7 +11,7 @@ CropURL allows users to create short URLs, generate QR codes, and track clicks, 
 
 **Live:** https://cropurl.in
 
-**Frontend Repository:** Add repository URL
+**Frontend Repository:** https://github.com/himanshunishad620/cropurl_client
 
 **Backend Repository:** Add repository URL
 
@@ -22,10 +25,11 @@ CropURL allows users to create short URLs, generate QR codes, and track clicks, 
 - 👥 Track unique visitors/clicks
 - 📈 View 7, 30, and 90-day analytics
 - 🌍 Track visitor locations by city
-- 🌐 Browser and location analytics
+- 🌐 Browser and operating-system analytics
 - 🔍 Search, filter, and sort URLs
 - 📥 Import URLs using CSV
 - 📤 Export URL data to CSV
+- 🌐 Custom domain integration
 - 🔐 JWT-based authentication
 - ✉️ Email verification and password reset
 - 📱 Responsive dashboard
@@ -41,11 +45,11 @@ CropURL allows users to create short URLs, generate QR codes, and track clicks, 
 
 ### Backend
 
-**Node.js · Express.js · MongoDB · Mongoose · JWT · bcrypt Resend · UAParser**
+**Node.js · Express.js · MongoDB · Mongoose · JWT · bcrypt · Resend · UAParser**
 
 ### Services & Deployment
 
-**MongoDB Atlas · Vercel · Render**
+**MongoDB Atlas · Vercel · Netlify · Render · Custom Domain**
 
 ---
 
@@ -61,7 +65,7 @@ CropURL allows users to create short URLs, generate QR codes, and track clicks, 
 
 ### QR Creation
 
-![CropURL Analytics](./public/s1.png)
+![CropURL QR Creation](./public/s1.png)
 
 ---
 
@@ -73,6 +77,10 @@ CropURL allows users to create short URLs, generate QR codes, and track clicks, 
 - Designed URL and analytics schemas using **MongoDB and Mongoose**
 - Implemented **JWT authentication** and protected routes
 - Implemented email verification and password-reset workflows
+- Integrated **Resend** for transactional emails
+- Implemented **custom domain integration** for the production website
+- Configured custom domain-based links for **email verification and password reset**
+- Configured **DNS and HTTPS** for the custom domain
 - Built click and QR scan tracking with daily analytics
 - Added city, browser, and OS-based analytics
 - Built interactive analytics charts using **Recharts**
@@ -131,7 +139,7 @@ JWT_SECRET=your_jwt_secret
 FRONTEND_URL=http://localhost:5173
 ```
 
-Add the required Cloudinary and email configuration as needed.
+Add the required email and other service configuration as needed.
 
 ### Frontend
 
