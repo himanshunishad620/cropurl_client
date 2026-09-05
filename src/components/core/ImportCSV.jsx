@@ -286,7 +286,7 @@ const ImportPreview = ({
 
     const finalData = await Promise.all(
       validData.map(async (row) => {
-        const shortCode = nanoid(7);
+        const shortCode = nanoid(6);
 
         const imgUrl = await generateDataURL(
           {
